@@ -52,68 +52,89 @@
     },
     {
       "id": "2",
-      "title": "Dapatkan Harga Terbaik",
-      "caption": "",
+      "title": "Mulai Dari 35jtaan",
+      "caption": "Promo Tahun Ini",
       "image": "./assets/carousel/slide_2.jpg",
       "fallback": "https://placehold.co/1920x500/0b5e7e/white?text=Haji+Khusus"
     }
   ],
   "gallery": [
     {
-      "id": "1780288128057",
-      "caption": "",
+      "id": "1780315349044",
+      "caption": "Mitra Resmi",
       "type": "image",
       "url": "./assets/gallery/gallery_1.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=Mitra%20Resmi"
+    },
+    {
+      "id": "1780315449163",
+      "caption": "5 langkah mudah",
+      "type": "image",
+      "url": "./assets/gallery/gallery_2.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=5%20langkah%20mudah"
     },
     {
-      "id": "1780288234045",
-      "caption": "",
-      "type": "image",
-      "url": "./assets/gallery/gallery_2.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=umroh%20dulu%20bayar%20nanti"
-    },
-    {
-      "id": "1780288266229",
-      "caption": "",
+      "id": "1780315498754",
+      "caption": "5 Langkah Mudah",
       "type": "image",
       "url": "./assets/gallery/gallery_3.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=tabungan%20umroh"
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=5%20Langkah%20Mudah"
     },
     {
-      "id": "1780288324319",
-      "caption": "",
+      "id": "1780315561940",
+      "caption": "5 Langkah Mudah",
       "type": "image",
       "url": "./assets/gallery/gallery_4.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=syiar%20ke%20calon%20jamaah"
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=5%20Langkah%20Mudah"
     },
     {
-      "id": "1780288341864",
-      "caption": "",
+      "id": "1780315628114",
+      "caption": "Syiar Baitullah",
       "type": "image",
       "url": "./assets/gallery/gallery_5.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=syiar%20ke%20calon%20jamaah"
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=Syiar%20Baitullah"
     },
     {
-      "id": "1780288356864",
-      "caption": "",
+      "id": "1780315670030",
+      "caption": "Syiar Baitullah",
       "type": "image",
       "url": "./assets/gallery/gallery_6.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=mitra%20resmi"
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=Syiar%20Baitullah"
     },
     {
-      "id": "1780288372456",
-      "caption": "",
+      "id": "1780315727692",
+      "caption": "5 Pasti",
       "type": "image",
       "url": "./assets/gallery/gallery_7.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=mitra%20resmi"
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=5%20Pasti"
     },
     {
-      "id": "1780288395433",
-      "caption": "",
+      "id": "1780315827962",
+      "caption": "Flyer Haji Khusus",
       "type": "image",
       "url": "./assets/gallery/gallery_8.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=sesi%20foto%20di%20masjid%20nabawi"
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=Flyer%20Haji%20Khusus"
+    },
+    {
+      "id": "1780315879110",
+      "caption": "Flyer Haji Furoda",
+      "type": "image",
+      "url": "./assets/gallery/gallery_9.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=Flyer%20Haji%20Furoda"
+    },
+    {
+      "id": "1780315944842",
+      "caption": "Flyer Badal Haji",
+      "type": "image",
+      "url": "./assets/gallery/gallery_10.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=Flyer%20Badal%20Haji"
+    },
+    {
+      "id": "1780316011649",
+      "caption": "Daftar Sekarang Juga",
+      "type": "image",
+      "url": "./assets/gallery/gallery_11.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=Daftar%20Sekarang%20Juga"
     }
   ],
   "services": [
@@ -135,22 +156,24 @@
   ],
   "blogPosts": [
     {
+      "id": "1",
+      "title": "Tips Mempersiapkan Umroh Pertama Kali",
+      "excerpt": "Persiapan fisik, mental, dan administrasi untuk umroh yang mabrur.",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+      "date": "2026-06-01",
+      "image": "https://placehold.co/600x400/1c84b5/white?text=Tips+Umroh"
+    },
+    {
       "id": "2",
       "title": "Keutamaan Ibadah di Bulan Ramadhan",
       "excerpt": "Rahasia pahala berlipat ganda saat melaksanakan umroh di bulan suci.",
       "content": "Lorem ipsum dolor sit amet...",
-      "date": "2025-02-20",
-      "image": "./assets/blog/blog_2.jpg"
-    },
-    {
-      "id": "1780288526316",
-      "title": "Tips Mempersiapkan Umroh Pertama Kali",
-      "excerpt": "Persiapan fisik, mental, dan administrasi untuk umroh yang mabrur.",
-      "content": "",
       "date": "2026-06-01",
-      "image": "./assets/blog/blog_3.jpg"
+      "image": "https://placehold.co/600x400/6ec1e4/white?text=Ramadhan"
     }
   ],
+
+
   "brochure": "./assets/brochure/brochure.jpg",
   "brochureFallback": "https://placehold.co/320x420/bfe2f2/0d5f7e?text=Brosur+Samira",
   "logo": "./assets/logo/logo.png",
