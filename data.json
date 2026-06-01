@@ -53,7 +53,7 @@
     {
       "id": "2",
       "title": "Dapatkan Harga Terbaik",
-      "caption": "Promo Early Bird 2025",
+      "caption": "",
       "image": "./assets/carousel/slide_2.jpg",
       "fallback": "https://placehold.co/1920x500/0b5e7e/white?text=Haji+Khusus"
     }
