@@ -1,1 +1,153 @@
-
+{
+  "settings": {
+    "brandName": "Raudhatul Jannah Team",
+    "tagline": "mitra SAMIRA TRAVEL",
+    "navHome": "Beranda",
+    "navBlog": "Blog",
+    "navMitra": "Mitra",
+    "navGallery": "Galeri",
+    "navMaps": "Lokasi",
+    "navWA": "Hubungi",
+    "mitraTitle": "Mitra Resmi Samira Travel",
+    "mitraName": "nama_MBS",
+    "mitraAddress": "alamat",
+    "waNumber1": "628123456789",
+    "waNumber2": "628123456789",
+    "galleryTitle": "Galeri Perjalanan",
+    "brochureTitle": "Program & Brosur",
+    "brochureHeading": "Paket Umroh & Haji Furoda",
+    "brochureDesc": "Dapatkan brosur digital dengan fasilitas lengkap, jadwal keberangkatan, dan promo terbaru dari mitra resmi Samira Travel.",
+    "footerText": "Samira Travel • Melayani Ibadah dengan Hati",
+    "footerAddress": "Mitra/Tour leader : nama (alamat)",
+    "copyright": "© 2026 Samira Travel | Umroh & Haji Terpercaya",
+    "mapsTitle": "Lokasi Mitra Kami",
+    "mapsAddress": "alamat",
+    "blogTitle": "Wujudkan Impian Anda dan Keluarga ke Baitullah Bersama Samira Travel",
+    "contactName": "nama_MBS",
+    "contactWA": "628123456789",
+    "contactPhone": "628123456789"
+  },
+  "colors": {
+    "primary": "#1c84b5",
+    "primaryDark": "#0f678f",
+    "secondary": "#6ec1e4",
+    "bgLight": "#f0f9ff",
+    "textDark": "#1a3a4f",
+    "textLight": "#2c5f78",
+    "navbarBg": "rgba(255, 255, 255, 0.96)",
+    "footerBg": "#e0f0f8"
+  },
+  "mapLocation": {
+    "lat": -6.1772852,
+    "lng": 106.98265,
+    "zoom": 15
+  },
+  "carousel": [
+    {
+      "id": "1779346302387",
+      "title": "UMROH SAMIRA TRAVEL",
+      "caption": "HARGA MULAI 35 JUTAAN",
+      "image": "assets/carousel/slide_1.jpg",
+      "fallback": "https://placehold.co/1920x500/1c84b5/white?text=UMROH%20SAMIRA%20TRAVEL"
+    },
+    {
+      "id": "1779346345955",
+      "title": "SELAMAT DATANG DI SAMIRA TRAVEL",
+      "caption": "UMROH NYAMAN , AMAN , DAN TERPERCAYA",
+      "image": "assets/carousel/slide_2.jpg",
+      "fallback": "https://placehold.co/1920x500/1c84b5/white?text=SELAMAT%20DATANG%20DI%20SAMIRA%20TRAVEL"
+    }
+  ],
+  "gallery": [
+    {
+      "id": "1779346612171",
+      "caption": "MADINAH",
+      "type": "image",
+      "url": "assets/gallery/gallery_1.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=MADINAH"
+    },
+    {
+      "id": "1779346634380",
+      "caption": "MEBERSAMAI JAMAAH",
+      "type": "image",
+      "url": "assets/gallery/gallery_2.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=MEBERSAMAI%20JAMAAH"
+    },
+    {
+      "id": "1779346646699",
+      "caption": "MANASIK AKBAR",
+      "type": "image",
+      "url": "assets/gallery/gallery_3.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=MANASIK%20AKBAR"
+    },
+    {
+      "id": "1779346669756",
+      "caption": "UMBAST",
+      "type": "image",
+      "url": "assets/gallery/gallery_4.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=UMBAST"
+    },
+    {
+      "id": "1779346716219",
+      "caption": "TOUR",
+      "type": "image",
+      "url": "assets/gallery/gallery_5.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=TOUR"
+    },
+    {
+      "id": "1779346729771",
+      "caption": "HOTEL",
+      "type": "image",
+      "url": "assets/gallery/gallery_6.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=HOTEL"
+    },
+    {
+      "id": "1779346765932",
+      "caption": "OUR SERVICE",
+      "type": "image",
+      "url": "assets/gallery/gallery_7.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=OUR%20SERVICE"
+    }
+  ],
+  "services": [
+    {
+      "title": "GRATIS PEMBUATAN PASSPORT",
+      "desc": "Free pembuatan passport untuk jamaah agar jamaah segera berangkat umroh. Pengurusan dilayani dengan baik dan profesional.",
+      "icon": "fas fa-passport"
+    },
+    {
+      "title": "Hotel Bintang 5",
+      "desc": "Akomodasi terbaik dekat Masjidil Haram dan Nabawi, plus konsumsi premium.",
+      "icon": "fas fa-hotel"
+    },
+    {
+      "title": "Transportasi Eksklusif",
+      "desc": "Bus pariwisata ber-AC dengan driver ramah dan berpengalaman di tanah suci.",
+      "icon": "fas fa-bus"
+    }
+  ],
+  "blogPosts": [
+    {
+      "id": "1",
+      "title": "Tips Memilih travel",
+      "excerpt": "Ibadah tenang dan khusyuk bersama SAMIRA TRAVEL",
+      "content": "",
+      "date": "2026-05-16",
+      "image": "assets/blog/blog_1.jpg"
+    },
+    {
+      "id": "2",
+      "title": "PENJELASAN PAKET UMROH SAMIRA TRAVEL",
+      "excerpt": "SAFARA BINTANG 3. SUKARI BINTANG 4 . MAJOL BINTANG 5 . MEKKAH HOTEL BINTANG 3 JARAK KEMASJID 900M, MADINAH HOTEL BINTANG 3 JARAK KEMASJID 500M",
+      "content": "",
+      "date": "2026-05-21",
+      "image": "assets/blog/blog_3.jpg"
+    }
+  ],
+  "brochure": "assets/brochure/brochure.jpg",
+  "brochureFallback": "https://placehold.co/320x420/bfe2f2/0d5f7e?text=Brosur+Samira",
+  "logo": "assets/logo/logo.png",
+  "logoFallback": "https://placehold.co/200x60/bfdff0/1c6c8f?text=Samira",
+  "mitraPhoto": "assets/mitra/mitra.png",
+  "mitraPhotoFallback": "https://placehold.co/150x150/3a8bbb/white?text=Mitra"
+}
