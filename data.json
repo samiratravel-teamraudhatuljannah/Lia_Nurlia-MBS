@@ -63,42 +63,42 @@
       "id": "1780288128057",
       "caption": "5 langkah mudah",
       "type": "image",
-      "url": "./assets/gallery/gallery_1.jpg",
+      "url": "./assets/gallery/gallery_6.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=5%20langkah%20mudah"
     },
     {
       "id": "1780288234045",
       "caption": "umroh dulu bayar nanti",
       "type": "image",
-      "url": "./assets/gallery/gallery_2.jpg",
+      "url": "./assets/gallery/gallery_1.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=umroh%20dulu%20bayar%20nanti"
     },
     {
       "id": "1780288266229",
       "caption": "tabungan umroh",
       "type": "image",
-      "url": "./assets/gallery/gallery_3.jpg",
+      "url": "./assets/gallery/gallery_2.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=tabungan%20umroh"
     },
     {
       "id": "1780288324319",
       "caption": "syiar ke calon jamaah",
       "type": "image",
-      "url": "./assets/gallery/gallery_4.jpg",
+      "url": "./assets/gallery/gallery_3.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=syiar%20ke%20calon%20jamaah"
     },
     {
       "id": "1780288341864",
       "caption": "syiar ke calon jamaah",
       "type": "image",
-      "url": "./assets/gallery/gallery_5.jpg",
+      "url": "./assets/gallery/gallery_4.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=syiar%20ke%20calon%20jamaah"
     },
     {
       "id": "1780288356864",
       "caption": "mitra resmi",
       "type": "image",
-      "url": "./assets/gallery/gallery_6.jpg",
+      "url": "./assets/gallery/gallery_5.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=mitra%20resmi"
     },
     {
