@@ -61,56 +61,56 @@
   "gallery": [
     {
       "id": "1780288128057",
-      "caption": "5 langkah mudah",
+      "caption": "",
       "type": "image",
-      "url": "./assets/gallery/gallery_6.jpg",
+      "url": "./assets/gallery/gallery_1.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=5%20langkah%20mudah"
     },
     {
       "id": "1780288234045",
-      "caption": "umroh dulu bayar nanti",
+      "caption": "",
       "type": "image",
-      "url": "./assets/gallery/gallery_1.jpg",
+      "url": "./assets/gallery/gallery_2.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=umroh%20dulu%20bayar%20nanti"
     },
     {
       "id": "1780288266229",
-      "caption": "tabungan umroh",
+      "caption": "",
       "type": "image",
-      "url": "./assets/gallery/gallery_2.jpg",
+      "url": "./assets/gallery/gallery_3.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=tabungan%20umroh"
     },
     {
       "id": "1780288324319",
-      "caption": "syiar ke calon jamaah",
-      "type": "image",
-      "url": "./assets/gallery/gallery_3.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=syiar%20ke%20calon%20jamaah"
-    },
-    {
-      "id": "1780288341864",
-      "caption": "syiar ke calon jamaah",
+      "caption": "",
       "type": "image",
       "url": "./assets/gallery/gallery_4.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=syiar%20ke%20calon%20jamaah"
     },
     {
-      "id": "1780288356864",
-      "caption": "mitra resmi",
+      "id": "1780288341864",
+      "caption": "",
       "type": "image",
       "url": "./assets/gallery/gallery_5.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=syiar%20ke%20calon%20jamaah"
+    },
+    {
+      "id": "1780288356864",
+      "caption": "",
+      "type": "image",
+      "url": "./assets/gallery/gallery_6.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=mitra%20resmi"
     },
     {
       "id": "1780288372456",
-      "caption": "mitra resmi",
+      "caption": "",
       "type": "image",
       "url": "./assets/gallery/gallery_7.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=mitra%20resmi"
     },
     {
       "id": "1780288395433",
-      "caption": "sesi foto di masjid nabawi",
+      "caption": "",
       "type": "image",
       "url": "./assets/gallery/gallery_8.jpg",
       "fallback": "https://placehold.co/600x400/3a8bbb/white?text=sesi%20foto%20di%20masjid%20nabawi"
