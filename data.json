@@ -1,7 +1,7 @@
 {
   "settings": {
     "brandName": "Raudhatul Jannah Team",
-    "tagline": "mitra SAMIRA TRAVEL",
+    "tagline": "Lia_Nurlia SAMIRA TRAVEL",
     "navHome": "Beranda",
     "navBlog": "Blog",
     "navMitra": "Mitra",
@@ -9,23 +9,23 @@
     "navMaps": "Lokasi",
     "navWA": "Hubungi",
     "mitraTitle": "Mitra Resmi Samira Travel",
-    "mitraName": "nama_MBS",
-    "mitraAddress": "alamat",
-    "waNumber1": "628123456789",
-    "waNumber2": "628123456789",
+    "mitraName": "Lia_Nurlia-MBS",
+    "mitraAddress": "Kp Jampang Rt 01 Rw 03 Desa: Leuwigoong\nKecamatan : Leuwigoong\nKabupaten Garut 44192",
+    "waNumber1": "6281222204262",
+    "waNumber2": "6281222204262",
     "galleryTitle": "Galeri Perjalanan",
     "brochureTitle": "Program & Brosur",
     "brochureHeading": "Paket Umroh & Haji Furoda",
     "brochureDesc": "Dapatkan brosur digital dengan fasilitas lengkap, jadwal keberangkatan, dan promo terbaru dari mitra resmi Samira Travel.",
     "footerText": "Samira Travel • Melayani Ibadah dengan Hati",
-    "footerAddress": "Mitra/Tour leader : nama (alamat)",
+    "footerAddress": "Mitra/Tour leader : Lia_Nurlia-MBS (Leuwigoong, Garut)",
     "copyright": "© 2026 Samira Travel | Umroh & Haji Terpercaya",
     "mapsTitle": "Lokasi Mitra Kami",
-    "mapsAddress": "alamat",
+    "mapsAddress": "Kp Jampang Rt 01 Rw 03 Desa: Leuwigoong Kecamatan : Leuwigoong Kabupaten Garut 44192",
     "blogTitle": "Wujudkan Impian Anda dan Keluarga ke Baitullah Bersama Samira Travel",
-    "contactName": "nama_MBS",
-    "contactWA": "628123456789",
-    "contactPhone": "628123456789"
+    "contactName": "Lia_Nurlia-MBS",
+    "contactWA": "6281222204262",
+    "contactPhone": "6281222204262"
   },
   "colors": {
     "primary": "#1c84b5",
@@ -34,79 +34,86 @@
     "bgLight": "#f0f9ff",
     "textDark": "#1a3a4f",
     "textLight": "#2c5f78",
-    "navbarBg": "rgba(255, 255, 255, 0.96)",
+    "navbarBg": "rgba(255,255,255,0.96)",
     "footerBg": "#e0f0f8"
   },
   "mapLocation": {
-    "lat": -6.1772852,
-    "lng": 106.98265,
+    "lat": -7.0934851,
+    "lng": 107.9561131,
     "zoom": 15
   },
   "carousel": [
     {
-      "id": "1779346302387",
-      "title": "UMROH SAMIRA TRAVEL",
-      "caption": "HARGA MULAI 35 JUTAAN",
-      "image": "assets/carousel/slide_1.jpg",
-      "fallback": "https://placehold.co/1920x500/1c84b5/white?text=UMROH%20SAMIRA%20TRAVEL"
+      "id": "1",
+      "title": "Selamat Datang di Samira Travel",
+      "caption": "Perjalanan Ibadah yang Nyaman",
+      "image": "./assets/carousel/slide_1.jpg",
+      "fallback": "https://placehold.co/1920x500/1c84b5/white?text=Umroh+2025"
     },
     {
-      "id": "1779346345955",
-      "title": "SELAMAT DATANG DI SAMIRA TRAVEL",
-      "caption": "UMROH NYAMAN , AMAN , DAN TERPERCAYA",
-      "image": "assets/carousel/slide_2.jpg",
-      "fallback": "https://placehold.co/1920x500/1c84b5/white?text=SELAMAT%20DATANG%20DI%20SAMIRA%20TRAVEL"
+      "id": "2",
+      "title": "Dapatkan Harga Terbaik",
+      "caption": "Promo Early Bird 2025",
+      "image": "./assets/carousel/slide_2.jpg",
+      "fallback": "https://placehold.co/1920x500/0b5e7e/white?text=Haji+Khusus"
     }
   ],
   "gallery": [
     {
-      "id": "1779346612171",
-      "caption": "MADINAH",
+      "id": "1780288128057",
+      "caption": "5 langkah mudah",
       "type": "image",
-      "url": "assets/gallery/gallery_1.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=MADINAH"
+      "url": "./assets/gallery/gallery_1.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=5%20langkah%20mudah"
     },
     {
-      "id": "1779346634380",
-      "caption": "MEBERSAMAI JAMAAH",
+      "id": "1780288234045",
+      "caption": "umroh dulu bayar nanti",
       "type": "image",
-      "url": "assets/gallery/gallery_2.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=MEBERSAMAI%20JAMAAH"
+      "url": "./assets/gallery/gallery_2.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=umroh%20dulu%20bayar%20nanti"
     },
     {
-      "id": "1779346646699",
-      "caption": "MANASIK AKBAR",
+      "id": "1780288266229",
+      "caption": "tabungan umroh",
       "type": "image",
-      "url": "assets/gallery/gallery_3.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=MANASIK%20AKBAR"
+      "url": "./assets/gallery/gallery_3.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=tabungan%20umroh"
     },
     {
-      "id": "1779346669756",
-      "caption": "UMBAST",
+      "id": "1780288324319",
+      "caption": "syiar ke calon jamaah",
       "type": "image",
-      "url": "assets/gallery/gallery_4.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=UMBAST"
+      "url": "./assets/gallery/gallery_4.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=syiar%20ke%20calon%20jamaah"
     },
     {
-      "id": "1779346716219",
-      "caption": "TOUR",
+      "id": "1780288341864",
+      "caption": "syiar ke calon jamaah",
       "type": "image",
-      "url": "assets/gallery/gallery_5.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=TOUR"
+      "url": "./assets/gallery/gallery_5.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=syiar%20ke%20calon%20jamaah"
     },
     {
-      "id": "1779346729771",
-      "caption": "HOTEL",
+      "id": "1780288356864",
+      "caption": "mitra resmi",
       "type": "image",
-      "url": "assets/gallery/gallery_6.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=HOTEL"
+      "url": "./assets/gallery/gallery_6.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=mitra%20resmi"
     },
     {
-      "id": "1779346765932",
-      "caption": "OUR SERVICE",
+      "id": "1780288372456",
+      "caption": "mitra resmi",
       "type": "image",
-      "url": "assets/gallery/gallery_7.jpg",
-      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=OUR%20SERVICE"
+      "url": "./assets/gallery/gallery_7.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=mitra%20resmi"
+    },
+    {
+      "id": "1780288395433",
+      "caption": "sesi foto di masjid nabawi",
+      "type": "image",
+      "url": "./assets/gallery/gallery_8.jpg",
+      "fallback": "https://placehold.co/600x400/3a8bbb/white?text=sesi%20foto%20di%20masjid%20nabawi"
     }
   ],
   "services": [
@@ -128,26 +135,26 @@
   ],
   "blogPosts": [
     {
-      "id": "1",
-      "title": "Tips Memilih travel",
-      "excerpt": "Ibadah tenang dan khusyuk bersama SAMIRA TRAVEL",
-      "content": "",
-      "date": "2026-05-16",
-      "image": "assets/blog/blog_1.jpg"
+      "id": "2",
+      "title": "Keutamaan Ibadah di Bulan Ramadhan",
+      "excerpt": "Rahasia pahala berlipat ganda saat melaksanakan umroh di bulan suci.",
+      "content": "Lorem ipsum dolor sit amet...",
+      "date": "2025-02-20",
+      "image": "https://placehold.co/600x400/6ec1e4/white?text=Ramadhan"
     },
     {
-      "id": "2",
-      "title": "PENJELASAN PAKET UMROH SAMIRA TRAVEL",
-      "excerpt": "SAFARA BINTANG 3. SUKARI BINTANG 4 . MAJOL BINTANG 5 . MEKKAH HOTEL BINTANG 3 JARAK KEMASJID 900M, MADINAH HOTEL BINTANG 3 JARAK KEMASJID 500M",
+      "id": "1780288526316",
+      "title": "Tips Mempersiapkan Umroh Pertama Kali",
+      "excerpt": "Persiapan fisik, mental, dan administrasi untuk umroh yang mabrur.",
       "content": "",
-      "date": "2026-05-21",
-      "image": "assets/blog/blog_3.jpg"
+      "date": "2026-06-01",
+      "image": "./assets/blog/blog_3.jpg"
     }
   ],
-  "brochure": "assets/brochure/brochure.jpg",
+  "brochure": "./assets/brochure/brochure.jpg",
   "brochureFallback": "https://placehold.co/320x420/bfe2f2/0d5f7e?text=Brosur+Samira",
-  "logo": "assets/logo/logo.png",
+  "logo": "./assets/logo/logo.png",
   "logoFallback": "https://placehold.co/200x60/bfdff0/1c6c8f?text=Samira",
-  "mitraPhoto": "assets/mitra/mitra.png",
+  "mitraPhoto": "./assets/mitra/mitra.jpg",
   "mitraPhotoFallback": "https://placehold.co/150x150/3a8bbb/white?text=Mitra"
 }
