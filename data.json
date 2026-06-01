@@ -154,26 +154,24 @@
       "icon": "fas fa-bus"
     }
   ],
-  "blogPosts": [
+ "blogPosts": [
     {
-      "id": "1",
+      "id": "1780316914027",
       "title": "Tips Mempersiapkan Umroh Pertama Kali",
       "excerpt": "Persiapan fisik, mental, dan administrasi untuk umroh yang mabrur.",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+      "content": "",
       "date": "2026-06-01",
-      "image": "https://placehold.co/600x400/1c84b5/white?text=Tips+Umroh"
+      "image": "./assets/blog/blog_3.jpg"
     },
-    {
-      "id": "2",
+   {
+    "id": "1780317037251",
       "title": "Keutamaan Ibadah di Bulan Ramadhan",
       "excerpt": "Rahasia pahala berlipat ganda saat melaksanakan umroh di bulan suci.",
-      "content": "Lorem ipsum dolor sit amet...",
+      "content": "",
       "date": "2026-06-01",
-      "image": "https://placehold.co/600x400/6ec1e4/white?text=Ramadhan"
+      "image": "./assets/blog/blog_3.png"
     }
   ],
-
-
   "brochure": "./assets/brochure/brochure.jpg",
   "brochureFallback": "https://placehold.co/320x420/bfe2f2/0d5f7e?text=Brosur+Samira",
   "logo": "./assets/logo/logo.png",
