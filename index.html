@@ -237,6 +237,133 @@
             margin: 10px auto 0;
         }
 
+        /* Samira Travel Intro Section */
+        .intro-samira {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f0fa 100%);
+            border-radius: 32px;
+            padding: 40px 30px;
+            margin: 50px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .intro-samira .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .intro-samira h3 {
+            font-size: 1.9rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+        }
+        .intro-samira .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .intro-samira .contact-24h {
+            background: white;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 28px;
+            margin-top: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            font-weight: 600;
+        }
+        .intro-samira .contact-24h i {
+            font-size: 28px;
+            color: #25D366;
+        }
+
+        /* Edukasi Section */
+        .edukasi-section {
+            background: linear-gradient(145deg, #fff8f0 0%, #fff0e0 100%);
+            border-radius: 32px;
+            padding: 40px 30px;
+            margin: 50px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .edukasi-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+        .edukasi-video {
+            flex: 1.2;
+            min-width: 280px;
+        }
+        .edukasi-video video {
+            width: 100%;
+            border-radius: 28px;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
+            background: #000;
+        }
+        .edukasi-info {
+            flex: 1;
+        }
+        .edukasi-info h3 {
+            font-size: 1.8rem;
+            color: #2a6b3c;
+            margin-bottom: 15px;
+        }
+        .edukasi-info .badge-syariah {
+            background: #e9b35f;
+            color: #2c2c2c;
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .list-keunggulan {
+            list-style: none;
+            margin: 20px 0;
+        }
+        .list-keunggulan li {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .list-keunggulan li i {
+            color: #2a6b3c;
+            font-size: 20px;
+            width: 28px;
+        }
+        .btn-wa-edukasi {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-wa-edukasi:hover {
+            background-color: #1da654;
+        }
+        .quote-labbaik {
+            margin-top: 25px;
+            font-style: italic;
+            color: #7a5800;
+            background: rgba(255,235,190,0.6);
+            padding: 12px 20px;
+            border-radius: 40px;
+            text-align: center;
+        }
+
         .service-card {
             background: var(--bg-light);
             border-radius: 20px;
@@ -455,6 +582,9 @@
                 height: 50px;
                 font-size: 24px;
             }
+            .intro-samira h3, .edukasi-info h3 {
+                font-size: 1.4rem;
+            }
         }
 
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -514,6 +644,53 @@
         </div>
     </section>
 
+    <!-- SECTION BARU: UMROH MEMBERSAMAI SAMIRA TRAVEL -->
+    <div class="intro-samira">
+        <div class="badge"><i class="fas fa-certificate"></i> Terpercaya & Berpengalaman</div>
+        <h3>Umroh membersamai <span class="highlight">Samira Travel</span></h3>
+        <p style="font-size: 1.1rem; margin-bottom: 15px;">Berbekal pengalaman dan keahlian yang profesional, <strong>SAMIRA TRAVEL</strong> telah memiliki izin resmi dari pemerintah serta <strong class="highlight">Rekor MURI</strong>.</p>
+        <p>Kami mengerti betapa pentingnya ibadah umroh bagi Anda, dan kami berkomitmen untuk memberikan pengalaman terbaik dalam perjalanan Anda menuju tanah suci.</p>
+        <div class="contact-24h">
+            <i class="fab fa-whatsapp"></i>
+            <span>Silahkan hubungi kami jika ingin bertanya – Kami akan melayani 24 jam.</span>
+        </div>
+    </div>
+
+    <!-- SECTION EDUKASI: UMROH DULU BAYAR BELAKANGAN + VIDEO -->
+    <div class="edukasi-section">
+        <div class="edukasi-flex">
+            <div class="edukasi-video">
+                <video controls poster="https://placehold.co/1280x720/2c5f78/white?text=Video+Umroh">
+                    <source src="blog/video.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung video. Silakan hubungi admin untuk materi video.
+                </video>
+            </div>
+            <div class="edukasi-info">
+                <div class="badge-syariah"><i class="fas fa-hand-holding-heart"></i> Alhamdulillah... Bayar DP setelah dinyatakan ACC</div>
+                <h3>Umroh Dulu Bayar Belakangan<br>Melalui Pembiayaan <strong style="color:#1e7b3e;">Amitra Syariah</strong></h3>
+                <ul class="list-keunggulan">
+                    <li><i class="fas fa-check-circle"></i> Tanpa Riba</li>
+                    <li><i class="fas fa-check-circle"></i> Diawasi oleh Dewan Syariah MUI & OJK</li>
+                    <li><i class="fas fa-check-circle"></i> Tanpa BI Checking</li>
+                    <li><i class="fas fa-check-circle"></i> Tanpa Jaminan/Anggunan</li>
+                    <li><i class="fas fa-check-circle"></i> Tanpa Denda Keterlambatan</li>
+                    <li><i class="fas fa-check-circle"></i> Tanpa Denda Finalti</li>
+                    <li><i class="fas fa-check-circle"></i> Jika Pemohon Wafat, Sisa Pembiayaan Lunas</li>
+                </ul>
+                <p style="font-size: 0.9rem; background:#fef5e6; padding: 12px; border-radius: 20px;">
+                    <strong>Akad Murabahah / Ijarah Multijasa / Akad Jual Beli</strong><br>
+                    Sesuai Fatwa Dewan Syariah Nasional Nomor : 44/DSN-MUI/VIII/2004
+                </p>
+                <button class="btn-wa-edukasi" id="waEdukasiBtn"><i class="fab fa-whatsapp"></i> Segera Daftar, Jangan Kehabisan Seat</button>
+                <div class="quote-labbaik">
+                    <i class="fas fa-star-of-life"></i> Skrg Umroh bukan lagi impian. Umroh semudah senyuman 🥰<br>
+                    INSPIRASI UMROHKU... 🕋🕋🕋<br>
+                    Labbaik.... Labbaik..... Allahu Akbar...
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section id="mitraSection">
         <div class="mitra-wrapper" id="mitraContent"></div>
     </section>
@@ -572,7 +749,6 @@
     let clickCount = 0;
     let clickTimer = null;
 
-    // Fungsi untuk menampilkan error yang informatif
     function showError(message, details = '') {
         const errorHtml = `
             <div class="error-container">
@@ -600,42 +776,29 @@
     async function loadData() {
         try {
             console.log('Mencoba memuat data.json...');
-            console.log('URL saat ini:', window.location.href);
-            
-            // Coba beberapa kemungkinan path untuk GitHub Pages
             let data = null;
             let paths = ['data.json', './data.json'];
-            
-            // Jika di subfolder, tambahkan path dengan base path
             const pathname = window.location.pathname;
             if (pathname.includes('/') && !pathname.endsWith('/index.html') && !pathname.endsWith('/')) {
                 const basePath = pathname.substring(0, pathname.lastIndexOf('/') + 1);
                 paths.unshift(basePath + 'data.json');
             }
-            
             for (let path of paths) {
                 try {
-                    console.log('Mencoba path:', path);
                     const response = await fetch(path);
                     if (response.ok) {
                         data = await response.json();
                         console.log('Berhasil memuat data dari:', path);
                         break;
                     }
-                } catch (e) {
-                    console.log('Gagal dari path:', path, e.message);
-                }
+                } catch (e) { console.log('Gagal dari path:', path); }
             }
-            
-            if (!data) {
-                throw new Error('Tidak dapat menemukan data.json');
-            }
-            
+            if (!data) throw new Error('Tidak dapat menemukan data.json');
             currentData = data;
             applyColors(currentData.colors);
             renderAll(currentData);
         } catch(err) {
-            console.error('Error detail:', err);
+            console.error(err);
             showError(err.message, 'Pastikan file data.json sudah di-upload ke repository GitHub Anda.');
         }
     }
@@ -653,7 +816,6 @@
     }
 
     function renderAll(d) {
-        // ========== LOGO & BRAND ==========
         const logoUrl = (d.logo && d.logo !== "") ? d.logo : (d.logoFallback || 'https://placehold.co/200x60/bfdff0/1c6c8f?text=Samira');
         const brandName = d.settings.brandName;
         const tagline = d.settings.tagline;
@@ -670,7 +832,6 @@
         logoMobile.src = logoUrl;
         logoMobile.onerror = () => { logoMobile.src = d.logoFallback || 'https://placehold.co/200x60/bfdff0/1c6c8f?text=Samira'; };
 
-        // ========== DESKTOP NAVIGATION ==========
         const navItems = ['navHome','navBlog','navMitra','navGallery','navMaps','navWA'];
         const navMap = { navHome:'#home', navBlog:'#blogSection', navMitra:'#mitraSection', navGallery:'#gallerySection', navMaps:'#map', navWA:'wa' };
         const navLinksHtml = navItems.map(key => {
@@ -681,7 +842,6 @@
         }).join('');
         document.getElementById('navLinksDesktop').innerHTML = navLinksHtml;
 
-        // ========== MOBILE BOTTOM NAVIGATION ==========
         const bottomNavDiv = document.getElementById('bottomNav');
         const bottomItems = navItems.map(key => {
             let icon = '';
@@ -697,7 +857,6 @@
         }).join('');
         bottomNavDiv.innerHTML = bottomItems;
 
-        // ========== HERO ==========
         const heroWrapper = document.getElementById('heroWrapper');
         heroWrapper.innerHTML = d.carousel.map(slide => `
             <div class="swiper-slide" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${slide.image}'); background-size: cover;">
@@ -705,222 +864,81 @@
             </div>
         `).join('');
         if(heroSwiper) heroSwiper.destroy(true, true);
-        heroSwiper = new Swiper('#heroSwiper', {
-            autoplay: { delay: 4000 },
-            loop: true,
-            pagination: { el: '.swiper-pagination', clickable: true },
-            navigation: false
-        });
+        heroSwiper = new Swiper('#heroSwiper', { autoplay: { delay: 4000 }, loop: true, pagination: { el: '.swiper-pagination', clickable: true } });
 
-        // ========== SERVICES ==========
         const servicesWrapper = document.getElementById('servicesWrapper');
-        servicesWrapper.innerHTML = d.services.map(s => `
-            <div class="swiper-slide">
-                <div class="service-card">
-                    <i class="${s.icon}"></i>
-                    <h3>${s.title}</h3>
-                    <p>${s.desc}</p>
-                </div>
-            </div>
-        `).join('');
+        servicesWrapper.innerHTML = d.services.map(s => `<div class="swiper-slide"><div class="service-card"><i class="${s.icon}"></i><h3>${s.title}</h3><p>${s.desc}</p></div></div>`).join('');
         if(servicesSwiper) servicesSwiper.destroy(true, true);
-        servicesSwiper = new Swiper('#servicesSwiper', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            pagination: { el: '.swiper-pagination', clickable: true },
-            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
-            navigation: false
-        });
+        servicesSwiper = new Swiper('#servicesSwiper', { slidesPerView: 1, spaceBetween: 20, pagination: { el: '.swiper-pagination', clickable: true }, breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } } });
 
-        // ========== MITRA ==========
         const mitraPhotoUrl = d.mitraPhoto || d.mitraPhotoFallback;
-        document.getElementById('mitraContent').innerHTML = `
-            <div class="mitra-photo"><img src="${mitraPhotoUrl}" onerror="this.src='${d.mitraPhotoFallback}'" alt="Mitra"></div>
-            <div class="mitra-info">
-                <h3>${d.settings.mitraName}</h3>
-                <p>${d.settings.mitraAddress}</p>
-                <p><i class="fas fa-phone-alt"></i> ${d.settings.contactPhone}</p>
-            </div>
-        `;
+        document.getElementById('mitraContent').innerHTML = `<div class="mitra-photo"><img src="${mitraPhotoUrl}" onerror="this.src='${d.mitraPhotoFallback}'" alt="Mitra"></div><div class="mitra-info"><h3>${d.settings.mitraName}</h3><p>${d.settings.mitraAddress}</p><p><i class="fas fa-phone-alt"></i> ${d.settings.contactPhone}</p></div>`;
 
-        // ========== GALLERY ==========
         const galleryWrapper = document.getElementById('galleryWrapper');
         galleryWrapper.innerHTML = d.gallery.map(item => {
             if(item.type === 'video') {
                 const thumb = item.thumbnail || `https://img.youtube.com/vi/${extractVideoId(item.url)}/hqdefault.jpg`;
-                return `<div class="swiper-slide" data-type="video" data-url="${item.url}">
-                            <img class="gallery-video-thumb" src="${thumb}" onerror="this.src='${item.fallback}'">
-                            <div class="gallery-caption">${item.caption} <i class="fas fa-play-circle"></i></div>
-                        </div>`;
+                return `<div class="swiper-slide" data-type="video" data-url="${item.url}"><img class="gallery-video-thumb" src="${thumb}" onerror="this.src='${item.fallback}'"><div class="gallery-caption">${item.caption} <i class="fas fa-play-circle"></i></div></div>`;
             } else {
-                return `<div class="swiper-slide" data-type="image" data-url="${item.url}">
-                            <img src="${item.url}" onerror="this.src='${item.fallback}'">
-                            <div class="gallery-caption">${item.caption}</div>
-                        </div>`;
+                return `<div class="swiper-slide" data-type="image" data-url="${item.url}"><img src="${item.url}" onerror="this.src='${item.fallback}'"><div class="gallery-caption">${item.caption}</div></div>`;
             }
         }).join('');
         if(gallerySwiper) gallerySwiper.destroy(true, true);
-        gallerySwiper = new Swiper('#gallerySwiper', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            pagination: { el: '.swiper-pagination', clickable: true },
-            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
-            navigation: false
-        });
-        document.querySelectorAll('#galleryWrapper .swiper-slide').forEach(slide => {
-            slide.addEventListener('click', () => openModal(slide.dataset.type, slide.dataset.url));
-        });
+        gallerySwiper = new Swiper('#gallerySwiper', { slidesPerView: 1, spaceBetween: 20, pagination: { el: '.swiper-pagination', clickable: true }, breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } } });
+        document.querySelectorAll('#galleryWrapper .swiper-slide').forEach(slide => { slide.addEventListener('click', () => openModal(slide.dataset.type, slide.dataset.url)); });
 
-        // ========== BLOG ==========
         document.getElementById('blogTitle').innerText = d.settings.blogTitle;
         const blogWrapper = document.getElementById('blogWrapper');
-        blogWrapper.innerHTML = d.blogPosts.map(post => `
-            <div class="swiper-slide">
-                <div class="blog-card">
-                    <img src="${post.image}" alt="${post.title}" onerror="this.src='https://placehold.co/600x400/3a8bbb/white?text=Gambar+Blog'">
-                    <div class="blog-content">
-                        <h3>${post.title}</h3>
-                        <small>${post.date}</small>
-                        <p>${post.excerpt}</p>
-                    </div>
-                </div>
-            </div>
-        `).join('');
+        blogWrapper.innerHTML = d.blogPosts.map(post => `<div class="swiper-slide"><div class="blog-card"><img src="${post.image}" alt="${post.title}" onerror="this.src='https://placehold.co/600x400/3a8bbb/white?text=Gambar+Blog'"><div class="blog-content"><h3>${post.title}</h3><small>${post.date}</small><p>${post.excerpt}</p></div></div></div>`).join('');
         if(blogSwiper) blogSwiper.destroy(true, true);
-        blogSwiper = new Swiper('#blogSwiper', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            pagination: { el: '.swiper-pagination', clickable: true },
-            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
-            navigation: false
-        });
-        
+        blogSwiper = new Swiper('#blogSwiper', { slidesPerView: 1, spaceBetween: 20, pagination: { el: '.swiper-pagination', clickable: true }, breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } } });
         attachBlogImageClickHandler();
 
-        // ========== BROCHURE ==========
         const brochureSection = document.getElementById('brochureSection');
         const brochureUrl = d.brochure || d.brochureFallback;
-        brochureSection.innerHTML = `
-            <div class="brochure-img"><img src="${brochureUrl}" onerror="this.src='${d.brochureFallback}'"></div>
-            <div class="brochure-info">
-                <h3>${d.settings.brochureHeading}</h3>
-                <p>${d.settings.brochureDesc}</p>
-                <button id="waBrochureBtn" class="wa-btn"><i class="fab fa-whatsapp"></i> Dapatkan Brosur via WA</button>
-            </div>
-        `;
-        document.getElementById('waBrochureBtn')?.addEventListener('click', () => {
-            window.open(`https://wa.me/${d.settings.waNumber1}?text=${encodeURIComponent('Halo, saya tertarik dengan paket Umroh/Haji. Mohon kirimkan brosur digital.')}`, '_blank');
-        });
+        brochureSection.innerHTML = `<div class="brochure-img"><img src="${brochureUrl}" onerror="this.src='${d.brochureFallback}'"></div><div class="brochure-info"><h3>${d.settings.brochureHeading}</h3><p>${d.settings.brochureDesc}</p><button id="waBrochureBtn" class="wa-btn"><i class="fab fa-whatsapp"></i> Dapatkan Brosur via WA</button></div>`;
+        document.getElementById('waBrochureBtn')?.addEventListener('click', () => { window.open(`https://wa.me/${d.settings.waNumber1}?text=${encodeURIComponent('Halo, saya tertarik dengan paket Umroh/Haji. Mohon kirimkan brosur digital.')}`, '_blank'); });
 
-        // ========== MAPS ==========
         if(mapInstance) mapInstance.remove();
         const { lat, lng, zoom } = d.mapLocation;
         mapInstance = L.map('map').setView([lat, lng], zoom);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
-        }).addTo(mapInstance);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>' }).addTo(mapInstance);
         L.marker([lat, lng]).addTo(mapInstance).bindPopup(`<b>${d.settings.mitraName}</b><br>${d.settings.mitraAddress}`).openPopup();
         document.getElementById('mapLink').innerHTML = `<a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank">📍 Buka di Google Maps</a>`;
         document.getElementById('mapsTitle').innerText = d.settings.mapsTitle;
-
-        // ========== FOOTER ==========
         document.getElementById('footerText').innerText = d.settings.footerText;
         document.getElementById('footerAddress').innerText = d.settings.footerAddress;
         document.getElementById('copyright').innerText = d.settings.copyright;
 
-        // ========== FLOATING WA & NAV WA ==========
         const waNumber = d.settings.waNumber1;
         document.getElementById('floatingWaBtn').href = `https://wa.me/${waNumber}?text=Assalamualaikum%20saya%20tertarik%20umroh`;
-        document.querySelectorAll('.wa-nav-link').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.open(`https://wa.me/${waNumber}?text=Assalamualaikum%20saya%20ingin%20bertanya%20tentang%20umroh`, '_blank');
-            });
-        });
+        document.querySelectorAll('.wa-nav-link').forEach(btn => { btn.addEventListener('click', (e) => { e.preventDefault(); window.open(`https://wa.me/${waNumber}?text=Assalamualaikum%20saya%20ingin%20bertanya%20tentang%20umroh`, '_blank'); }); });
+        const waEduBtn = document.getElementById('waEdukasiBtn');
+        if(waEduBtn) waEduBtn.addEventListener('click', () => { window.open(`https://wa.me/${waNumber}?text=Assalamualaikum%20saya%20tertarik%20dengan%20program%20Umroh%20Dulu%20Bayar%20Belakangan%20(Amitra%20Syariah)`, '_blank'); });
     }
 
     function attachBlogImageClickHandler() {
         const blogContainer = document.getElementById('blogWrapper');
-        if (!blogContainer) return;
-        if (blogContainer.hasAttribute('data-blog-click-attached')) return;
+        if (!blogContainer || blogContainer.hasAttribute('data-blog-click-attached')) return;
         blogContainer.setAttribute('data-blog-click-attached', 'true');
-        
         blogContainer.addEventListener('click', (e) => {
             const targetImg = e.target.closest('.blog-card img');
-            if (targetImg && targetImg.src) {
-                e.preventDefault();
-                e.stopPropagation();
-                openModal('image', targetImg.src);
-            }
+            if (targetImg && targetImg.src) { e.preventDefault(); e.stopPropagation(); openModal('image', targetImg.src); }
         });
     }
 
-    function extractVideoId(url) {
-        let match = url.match(/embed\/([^?]+)/);
-        if (match) return match[1];
-        match = url.match(/v=([^&]+)/);
-        if (match && match[1]) return match[1];
-        return 'dQw4w9WgXcQ';
-    }
+    function extractVideoId(url) { let match = url.match(/embed\/([^?]+)/); if(match) return match[1]; match = url.match(/v=([^&]+)/); return match ? match[1] : 'dQw4w9WgXcQ'; }
 
     function openModal(type, src) {
-        const modal = document.getElementById('mediaModal');
-        const modalContent = document.getElementById('modalContent');
+        const modal = document.getElementById('mediaModal'); const modalContent = document.getElementById('modalContent');
         if (!modal || !modalContent) return;
-        if(type === 'image') {
-            modalContent.innerHTML = `<img src="${src}" style="max-width:100%;max-height:80vh; border-radius:12px;">`;
-        } else {
-            let finalUrl = src;
-            if (src.includes('youtube.com/watch')) {
-                let videoId = src.split('v=')[1]?.split('&')[0];
-                if(videoId) finalUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            } else if (src.includes('youtu.be')) {
-                let videoId = src.split('/').pop()?.split('?')[0];
-                if(videoId) finalUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            } else if (!src.includes('embed') && !src.includes('youtube.com/embed')) {
-                finalUrl = src;
-            }
-            modalContent.innerHTML = `<iframe width="100%" height="400" src="${finalUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-        }
+        if(type === 'image') modalContent.innerHTML = `<img src="${src}" style="max-width:100%;max-height:80vh; border-radius:12px;">`;
+        else { let finalUrl = src; if(src.includes('youtube.com/watch')) { let videoId = src.split('v=')[1]?.split('&')[0]; if(videoId) finalUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`; } else if(src.includes('youtu.be')) { let videoId = src.split('/').pop()?.split('?')[0]; if(videoId) finalUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`; } modalContent.innerHTML = `<iframe width="100%" height="400" src="${finalUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`; }
         modal.style.display = 'flex';
     }
-
-    document.querySelector('.close-modal')?.addEventListener('click', () => {
-        const modal = document.getElementById('mediaModal');
-        if(modal) modal.style.display = 'none';
-        const modalContent = document.getElementById('modalContent');
-        if(modalContent) modalContent.innerHTML = '';
-    });
-    
-    window.addEventListener('click', (e) => {
-        const modal = document.getElementById('mediaModal');
-        if(e.target === modal) {
-            modal.style.display = 'none';
-            const modalContent = document.getElementById('modalContent');
-            if(modalContent) modalContent.innerHTML = '';
-        }
-    });
-
-    // ========== TRIPLE CLICK FOOTER ==========
-    const footer = document.getElementById('secretFooter');
-    if(footer) {
-        footer.addEventListener('click', () => {
-            clickCount++;
-            clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => { clickCount = 0; }, 800);
-            if (clickCount === 3) {
-                const pin = prompt("Masukkan PIN untuk akses Admin:");
-                if (pin === "4321") {
-                    window.location.href = "admin.html";
-                } else {
-                    alert("PIN salah!");
-                }
-                clickCount = 0;
-            }
-        });
-    }
-
-    // Jalankan load data
+    document.querySelector('.close-modal')?.addEventListener('click', () => { const modal = document.getElementById('mediaModal'); if(modal) modal.style.display = 'none'; const modalContent = document.getElementById('modalContent'); if(modalContent) modalContent.innerHTML = ''; });
+    window.addEventListener('click', (e) => { const modal = document.getElementById('mediaModal'); if(e.target === modal) { modal.style.display = 'none'; const modalContent = document.getElementById('modalContent'); if(modalContent) modalContent.innerHTML = ''; } });
+    const footer = document.getElementById('secretFooter'); if(footer) { footer.addEventListener('click', () => { clickCount++; clearTimeout(clickTimer); clickTimer = setTimeout(() => { clickCount = 0; }, 800); if(clickCount === 3) { const pin = prompt("Masukkan PIN untuk akses Admin:"); if(pin === "4321") window.location.href = "admin.html"; else alert("PIN salah!"); clickCount = 0; } }); }
     loadData();
 </script>
 </body>
