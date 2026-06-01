@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Admin Panel Samira Travel | Kelola Data (Non-Realtime)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter','Plus Jakarta Sans',sans-serif; background:linear-gradient(135deg,#f0f9ff 0%,#e6f4fa 100%); min-height:100vh; padding:24px; }
+        .container { max-width:1400px; margin:0 auto; }
+        .header { background:linear-gradient(135deg,#fff 0%,#f8fcff 100%); backdrop-filter:blur(10px); border-radius:28px; padding:28px 32px; margin-bottom:32px; box-shadow:0 8px 32px rgba(28,132,181,0.08); border:1px solid rgba(110,193,228,0.3); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+        .header h1 { font-size:1.8rem; font-weight:800; background:linear-gradient(135deg,#1c84b5,#0f678f); -webkit-background-clip:text; background-clip:text; color:transparent; }
+        .header p { color:#5a7d94; margin-top:4px; font-size:0.9rem; }
+        .auto-rename-badge { background:linear-gradient(135deg,#10b981,#059669); color:white; padding:10px 20px; border-radius:20px; font-size:0.85rem; font-weight:600; display:inline-flex; align-items:center; gap:8px; animation:pulse-badge 2s infinite; }
+        @keyframes pulse-badge { 0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.4);} 50%{box-shadow:0 0 0 15px rgba(16,185,129,0);} }
+        .info-banner { background:linear-gradient(135deg,#dbeafe,#bfdbfe); border:2px solid #3b82f6; border-radius:20px; padding:20px 24px; margin-bottom:28px; display:flex; align-items:flex-start; gap:14px; }
+        .info-banner i { font-size:1.5rem; color:#2563eb; margin-top:2px; }
+        .info-banner-content h4 { color:#1e40af; margin-bottom:6px; }
+        .info-banner-content p { color:#1e3a5f; font-size:0.85rem; line-height:1.5; }
+        .tabs { display:flex; gap:12px; margin-bottom:28px; flex-wrap:wrap; }
+        .tab-btn { background:white; border:none; padding:12px 24px; border-radius:60px; font-weight:600; font-size:0.9rem; color:#4a6f85; cursor:pointer; transition:all 0.3s ease; border:1px solid #d4eaf3; display:inline-flex; align-items:center; gap:10px; }
+        .tab-btn:hover { background:#eef7ff; border-color:#1c84b5; transform:translateY(-2px); }
+        .tab-btn.active { background:linear-gradient(135deg,#1c84b5,#0f678f); color:white; border-color:transparent; box-shadow:0 6px 16px rgba(28,132,181,0.3); }
+        .tab-content { display:none; }
+        .tab-content.active { display:block; }
+        .dashboard { display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:28px; }
+        .card { background:rgba(255,255,255,0.95); border-radius:28px; padding:28px; box-shadow:0 8px 28px rgba(28,132,181,0.06); border:1px solid rgba(110,193,228,0.25); }
+        .card h3 { color:#115e7a; margin-bottom:24px; padding-bottom:14px; border-bottom:2px solid #e0f0f8; display:flex; align-items:center; gap:12px; font-size:1.25rem; font-weight:700; }
+        .card h3 i { color:#1c84b5; }
+        .form-group { margin-bottom:20px; }
+        label { display:block; font-weight:600; margin-bottom:8px; color:#2c5f78; font-size:0.85rem; }
+        input, textarea, select { width:100%; padding:12px 16px; border:2px solid #e2eff7; border-radius:16px; font-size:0.9rem; font-family:'Inter',sans-serif; transition:all 0.2s ease; background:#fff; }
+        input:focus, textarea:focus, select:focus { outline:none; border-color:#1c84b5; box-shadow:0 0 0 3px rgba(28,132,181,0.1); }
+        textarea { resize:vertical; min-height:80px; }
+        .color-input-group { display:flex; gap:12px; align-items:center; }
+        .color-input-group input[type="color"] { width:50px; height:50px; padding:4px; border-radius:14px; cursor:pointer; }
+        .color-input-group span { flex:1; font-family:monospace; font-size:0.85rem; color:#4a6f85; background:#f8fafc; padding:10px; border-radius:12px; }
+        .upload-area { border:3px dashed #d4eaf3; border-radius:20px; padding:30px; text-align:center; background:#fafdfe; transition:all 0.3s ease; cursor:pointer; }
+        .upload-area:hover { border-color:#1c84b5; background:#eef7ff; }
+        .upload-area.dragover { border-color:#10b981; background:#f0fdf4; transform:scale(1.02); }
+        .upload-area i { font-size:3rem; color:#1c84b5; margin-bottom:12px; }
+        .upload-area p { color:#5a7d94; font-size:0.9rem; }
+        .upload-area input[type="file"] { display:none; }
+        .preview-rename-box { background:#f0fdf4; border:2px solid #10b981; border-radius:16px; padding:16px; margin-top:12px; display:none; }
+        .preview-rename-box.show { display:block; }
+        .preview-rename-box .preview-header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+        .preview-rename-box .preview-header i { font-size:1.5rem; color:#059669; }
+        .preview-rename-box .preview-header span { font-weight:700; color:#065f46; }
+        .preview-image { width:100%; max-height:200px; object-fit:contain; border-radius:12px; margin-bottom:12px; background:#f8fafc; }
+        .rename-info { background:white; border-radius:12px; padding:14px; font-family:monospace; }
+        .rename-info .old-name { color:#ef4444; text-decoration:line-through; font-size:0.85rem; }
+        .rename-info .new-name { color:#059669; font-weight:700; font-size:1rem; display:block; margin-top:4px; }
+        .rename-info .arrow { color:#3b82f6; margin:0 8px; }
+        .download-btn { background:linear-gradient(135deg,#10b981,#059669); color:white; border:none; padding:12px 24px; border-radius:40px; cursor:pointer; font-weight:600; font-size:0.9rem; margin-top:12px; display:inline-flex; align-items:center; gap:8px; }
+        .download-btn:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(16,185,129,0.3); }
+        .item-list { margin-top:24px; max-height:400px; overflow-y:auto; border-radius:20px; }
+        .item-card { background:#fafdfe; border-radius:20px; padding:14px; margin-bottom:12px; display:flex; align-items:center; gap:16px; border:1px solid #e2eff7; transition:all 0.2s; }
+        .item-card:hover { background:#fff; border-color:#1c84b5; }
+        .item-card img { width:70px; height:70px; object-fit:cover; border-radius:16px; }
+        .item-info { flex:1; font-size:0.85rem; }
+        .item-info strong { color:#115e7a; display:block; margin-bottom:4px; }
+        .item-info .file-name { display:inline-block; background:#d1fae5; color:#065f46; padding:2px 10px; border-radius:6px; font-size:0.75rem; font-family:monospace; }
+        .delete-btn { background:linear-gradient(135deg,#ef4444,#dc2626); color:white; border:none; padding:8px 18px; border-radius:40px; cursor:pointer; font-size:0.75rem; font-weight:600; }
+        .maps-preview { height:300px; border-radius:20px; margin-top:20px; overflow:hidden; border:2px solid #e2eff7; }
+        .action-buttons { display:flex; gap:15px; flex-wrap:wrap; margin-top:24px; padding-top:20px; border-top:2px solid #e0f0f8; }
+        button { background:linear-gradient(135deg,#1c84b5,#0f678f); color:white; border:none; padding:12px 28px; border-radius:40px; cursor:pointer; font-weight:600; font-size:0.9rem; transition:all 0.3s ease; display:inline-flex; align-items:center; gap:8px; }
+        button:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(28,132,181,0.3); }
+        .btn-danger { background:linear-gradient(135deg,#ef4444,#dc2626); }
+        .btn-success { background:linear-gradient(135deg,#10b981,#059669); }
+        .btn-warning { background:linear-gradient(135deg,#f59e0b,#d97706); }
+        .btn-secondary { background:linear-gradient(135deg,#6b7280,#4b5563); }
+        .export-section { background:#f0fdf4; border:2px solid #10b981; border-radius:24px; padding:24px; margin-top:24px; }
+        .export-section pre { background:#1e293b; color:#e2e8f0; padding:16px; border-radius:16px; font-size:0.8rem; max-height:300px; overflow-y:auto; white-space:pre-wrap; }
+        .toast { position:fixed; top:24px; right:24px; background:linear-gradient(135deg,#10b981,#059669); color:white; padding:14px 24px; border-radius:60px; z-index:2000; font-weight:500; font-size:0.9rem; box-shadow:0 8px 20px rgba(0,0,0,0.15); animation:slideInRight 0.3s ease; display:flex; align-items:center; gap:10px; max-width:400px; }
+        .toast.error { background:linear-gradient(135deg,#ef4444,#dc2626); }
+        @keyframes slideInRight { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+        ::-webkit-scrollbar { width:6px; }
+        ::-webkit-scrollbar-track { background:#e2eff7; border-radius:10px; }
+        ::-webkit-scrollbar-thumb { background:#1c84b5; border-radius:10px; }
+        @media (max-width:768px) { body { padding:16px; } .dashboard { grid-template-columns:1fr; } .card { padding:20px; } .tabs { gap:8px; } .tab-btn { padding:8px 16px; font-size:0.8rem; } }
+        .save-float { position:sticky; bottom:20px; right:20px; background:#10b981; color:white; border:none; padding:16px 32px; border-radius:60px; font-weight:700; box-shadow:0 8px 20px rgba(0,0,0,0.2); z-index:100; margin-top:20px; display:inline-flex; gap:8px; cursor:pointer; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div><h1>📸 Samira Travel Admin</h1><p>Edit Data (Tidak Langsung Tersimpan) • Simpan Manual ke Data</p></div>
+        <span class="auto-rename-badge"><i class="fas fa-magic"></i> Auto Rename Aktif</span>
+    </div>
+    <div class="info-banner">
+        <i class="fas fa-info-circle"></i>
+        <div class="info-banner-content">
+            <h4>⚠️ Mode Non-Realtime</h4>
+            <p>Perubahan hanya berlaku di tampilan admin. Untuk menyimpan ke data.json yang akan diekspor, klik tombol <strong>"Simpan Semua Perubahan ke Memori Kerja"</strong> di bawah. Data dummy tetap sebagai awal.</p>
+        </div>
+    </div>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('customize')"><i class="fas fa-sliders-h"></i> Customize</button>
+        <button class="tab-btn" onclick="showTab('maps')"><i class="fas fa-map-marker-alt"></i> Maps</button>
+        <button class="tab-btn" onclick="showTab('carousel')"><i class="fas fa-images"></i> Carousel</button>
+        <button class="tab-btn" onclick="showTab('gallery')"><i class="fas fa-photo-video"></i> Galeri</button>
+        <button class="tab-btn" onclick="showTab('services')"><i class="fas fa-concierge-bell"></i> Layanan</button>
+        <button class="tab-btn" onclick="showTab('blog')"><i class="fas fa-newspaper"></i> Blog</button>
+        <button class="tab-btn" onclick="showTab('brochure')"><i class="fas fa-brochure"></i> Brosur & Logo</button>
+        <button class="tab-btn" onclick="showTab('mitra')"><i class="fas fa-user-tie"></i> Mitra</button>
+        <button class="tab-btn" onclick="showTab('export')"><i class="fas fa-download"></i> Export</button>
+    </div>
+
+    <!-- CUSTOMIZE (Settings + Colors) -->
+    <div id="customize-tab" class="tab-content active">
+        <div class="dashboard">
+            <div class="card"><h3><i class="fas fa-font"></i> Navigasi & Brand</h3>
+                <div class="form-group"><label>🏷️ Nama Brand</label><input type="text" id="brandName"></div>
+                <div class="form-group"><label>📝 Tagline</label><input type="text" id="tagline"></div>
+                <div class="form-group"><label>🏠 Menu Beranda</label><input type="text" id="navHome"></div>
+                <div class="form-group"><label>📖 Menu Blog</label><input type="text" id="navBlog"></div>
+                <div class="form-group"><label>🤝 Menu Mitra</label><input type="text" id="navMitra"></div>
+                <div class="form-group"><label>🖼️ Menu Galeri</label><input type="text" id="navGallery"></div>
+                <div class="form-group"><label>📍 Menu Lokasi</label><input type="text" id="navMaps"></div>
+                <div class="form-group"><label>📞 Tombol WA</label><input type="text" id="navWA"></div>
+            </div>
+            <div class="card"><h3><i class="fas fa-user-tie"></i> Info Mitra & Blog</h3>
+                <div class="form-group"><label>Judul Section Mitra</label><input type="text" id="mitraTitle"></div>
+                <div class="form-group"><label>Nama Mitra</label><input type="text" id="mitraName"></div>
+                <div class="form-group"><label>Alamat Mitra</label><textarea id="mitraAddress" rows="3"></textarea></div>
+                <div class="form-group"><label>📱 Nomor WA 1</label><input type="text" id="waNumber1"></div>
+                <div class="form-group"><label>📱 Nomor WA 2</label><input type="text" id="waNumber2"></div>
+                <div class="form-group"><label>📰 Judul Blog Utama</label><textarea id="blogTitle" rows="2"></textarea></div>
+                <div class="form-group"><label>👤 Nama Kontak Person</label><input type="text" id="contactName"></div>
+                <div class="form-group"><label>💬 WA Kontak Person</label><input type="text" id="contactWA"></div>
+                <div class="form-group"><label>📞 Telepon Kontak</label><input type="text" id="contactPhone"></div>
+            </div>
+            <div class="card"><h3><i class="fas fa-palette"></i> Warna Website</h3>
+                <div class="form-group"><label>Warna Utama</label><div class="color-input-group"><input type="color" id="primaryColor"><span id="primaryColorVal"></span></div></div>
+                <div class="form-group"><label>Warna Utama (Dark)</label><div class="color-input-group"><input type="color" id="primaryDarkColor"><span id="primaryDarkVal"></span></div></div>
+                <div class="form-group"><label>Warna Sekunder</label><div class="color-input-group"><input type="color" id="secondaryColor"><span id="secondaryColorVal"></span></div></div>
+                <div class="form-group"><label>Background Light</label><input type="color" id="bgLightColor"></div>
+                <div class="form-group"><label>Warna Teks Gelap</label><input type="color" id="textDarkColor"></div>
+                <div class="form-group"><label>Warna Teks Terang</label><input type="color" id="textLightColor"></div>
+                <div class="form-group"><label>Background Navbar</label><input type="text" id="navbarBgColor" placeholder="rgba(255,255,255,0.96)"></div>
+                <div class="form-group"><label>Background Footer</label><input type="color" id="footerBgColor"></div>
+            </div>
+            <div class="card"><h3><i class="fas fa-copyright"></i> Footer & Lainnya</h3>
+                <div class="form-group"><label>🖼️ Judul Galeri</label><input type="text" id="galleryTitle"></div>
+                <div class="form-group"><label>📄 Judul Brosur</label><input type="text" id="brochureTitle"></div>
+                <div class="form-group"><label>📌 Heading Brosur</label><input type="text" id="brochureHeading"></div>
+                <div class="form-group"><label>📝 Deskripsi Brosur</label><textarea id="brochureDesc" rows="2"></textarea></div>
+                <div class="form-group"><label>📌 Teks Footer</label><input type="text" id="footerText"></div>
+                <div class="form-group"><label>📍 Alamat Footer</label><input type="text" id="footerAddress"></div>
+                <div class="form-group"><label>© Copyright</label><input type="text" id="copyright"></div>
+                <div class="form-group"><label>🗺️ Judul Maps</label><input type="text" id="mapsTitle"></div>
+                <div class="form-group"><label>📍 Alamat Maps</label><input type="text" id="mapsAddress"></div>
+            </div>
+        </div>
+        <div class="action-buttons"><button onclick="saveWorkingSettings()"><i class="fas fa-save"></i> Simpan Perubahan Settings & Warna (ke memori kerja)</button></div>
+    </div>
+
+    <!-- MAPS -->
+    <div id="maps-tab" class="tab-content">
+        <div class="dashboard"><div class="card"><h3><i class="fas fa-map-marker-alt"></i> Atur Lokasi Maps</h3>
+            <div class="form-group"><label>🌐 Latitude</label><input type="number" id="mapLat" step="0.000001"></div>
+            <div class="form-group"><label>🌐 Longitude</label><input type="number" id="mapLng" step="0.000001"></div>
+            <div class="form-group"><label>🔍 Zoom (1-19)</label><input type="number" id="mapZoom" min="1" max="19"></div>
+            <button onclick="updateMapsPreviewOnly()"><i class="fas fa-sync"></i> Update Preview (tidak simpan)</button>
+            <div id="mapsPreview" class="maps-preview"></div>
+            <button onclick="saveWorkingMap()" style="margin-top:12px;"><i class="fas fa-save"></i> Simpan Lokasi ke Memori Kerja</button>
+        </div></div>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div id="carousel-tab" class="tab-content">
+        <div class="dashboard"><div class="card"><h3><i class="fas fa-plus-circle"></i> Tambah Slide Carousel (Kerja)</h3>
+            <div class="form-group"><label>📌 Judul Slide</label><input type="text" id="carouselTitle" placeholder="Judul"></div>
+            <div class="form-group"><label>📝 Caption</label><input type="text" id="carouselCaption" placeholder="Caption"></div>
+            <div class="form-group"><label>🖼️ Upload Foto (Auto Rename)</label>
+                <div class="upload-area" id="carouselUploadArea" onclick="document.getElementById('carouselFileInput').click()">
+                    <i class="fas fa-cloud-upload-alt"></i><p><strong>Klik atau Drag & Drop</strong></p><input type="file" id="carouselFileInput" accept="image/*" onchange="handleCarouselFile(this)">
+                </div>
+                <div class="preview-rename-box" id="carouselPreviewBox">
+                    <div class="preview-header"><i class="fas fa-check-circle"></i><span>Foto Siap!</span></div>
+                    <img id="carouselPreviewImg" class="preview-image"><div class="rename-info"><span class="old-name" id="carouselOldName"></span><span class="arrow">→</span><span class="new-name" id="carouselNewName"></span></div>
+                    <button class="download-btn" onclick="downloadRenamedImage('carousel')"><i class="fas fa-download"></i> Download (Sudah Rename)</button>
+                </div>
+            </div>
+            <button onclick="addWorkingCarousel()"><i class="fas fa-plus"></i> Tambah ke Daftar (Kerja)</button>
+            <div id="carouselList" class="item-list"></div>
+        </div></div>
+    </div>
+
+    <!-- GALLERY -->
+    <div id="gallery-tab" class="tab-content">
+        <div class="dashboard"><div class="card"><h3><i class="fas fa-plus-circle"></i> Tambah Foto Galeri (Kerja)</h3>
+            <div class="form-group"><label>📝 Caption Foto</label><input type="text" id="galleryCaptionInput"></div>
+            <div class="form-group"><label>🖼️ Upload Foto (Auto Rename)</label>
+                <div class="upload-area" id="galleryUploadArea" onclick="document.getElementById('galleryFileInput').click()">
+                    <i class="fas fa-cloud-upload-alt"></i><p><strong>Klik atau Drag & Drop</strong></p><input type="file" id="galleryFileInput" accept="image/*" onchange="handleGalleryFile(this)">
+                </div>
+                <div class="preview-rename-box" id="galleryPreviewBox">
+                    <div class="preview-header"><i class="fas fa-check-circle"></i><span>Foto Siap!</span></div>
+                    <img id="galleryPreviewImg" class="preview-image"><div class="rename-info"><span class="old-name" id="galleryOldName"></span><span class="arrow">→</span><span class="new-name" id="galleryNewName"></span></div>
+                    <button class="download-btn" onclick="downloadRenamedImage('gallery')"><i class="fas fa-download"></i> Download (Sudah Rename)</button>
+                </div>
+            </div>
+            <button onclick="addWorkingGallery()"><i class="fas fa-plus"></i> Tambah ke Galeri (Kerja)</button>
+            <div id="galleryList" class="item-list"></div>
+        </div></div>
+    </div>
+
+    <!-- LAYANAN -->
+    <div id="services-tab" class="tab-content">
+        <div class="dashboard"><div class="card"><h3><i class="fas fa-concierge-bell"></i> Layanan Unggulan (Kerja)</h3>
+            <div id="servicesList"></div>
+            <button onclick="addWorkingService()" style="margin-top:16px;"><i class="fas fa-plus"></i> Tambah Layanan (Kerja)</button>
+        </div></div>
+    </div>
+
+    <!-- BLOG dengan Upload Gambar -->
+    <div id="blog-tab" class="tab-content">
+        <div class="dashboard"><div class="card"><h3><i class="fas fa-newspaper"></i> Artikel Blog (Kerja) - Upload Gambar Langsung</h3>
+            <div id="blogList"></div>
+            <div style="margin-top:24px; border-top:2px solid #e0f0f8; padding-top:20px;">
+                <h4><i class="fas fa-plus-circle"></i> Tambah Artikel Baru</h4>
+                <div class="form-group"><label>📝 Judul Artikel</label><input type="text" id="newBlogTitle" placeholder="Judul artikel"></div>
+                <div class="form-group"><label>✂️ Ringkasan (Excerpt)</label><textarea id="newBlogExcerpt" rows="2" placeholder="Ringkasan singkat..."></textarea></div>
+                <div class="form-group"><label>📅 Tanggal</label><input type="date" id="newBlogDate"></div>
+                <div class="form-group"><label>🖼️ Upload Gambar Artikel (Auto Rename)</label>
+                    <div class="upload-area" id="blogUploadArea" onclick="document.getElementById('blogFileInput').click()">
+                        <i class="fas fa-cloud-upload-alt"></i><p><strong>Klik atau Drag & Drop</strong></p><input type="file" id="blogFileInput" accept="image/*" onchange="handleBlogFile(this)">
+                    </div>
+                    <div class="preview-rename-box" id="blogPreviewBox">
+                        <div class="preview-header"><i class="fas fa-check-circle"></i><span>Gambar Siap!</span></div>
+                        <img id="blogPreviewImg" class="preview-image"><div class="rename-info"><span class="old-name" id="blogOldName"></span><span class="arrow">→</span><span class="new-name" id="blogNewName"></span></div>
+                        <button class="download-btn" onclick="downloadRenamedImage('blog')"><i class="fas fa-download"></i> Download (Sudah Rename)</button>
+                    </div>
+                </div>
+                <button onclick="addWorkingBlogWithImage()"><i class="fas fa-save"></i> Simpan Artikel Baru ke Memori Kerja</button>
+            </div>
+        </div></div>
+    </div>
+
+    <!-- BROSUR & LOGO -->
+    <div id="brochure-tab" class="tab-content">
+        <div class="dashboard">
+            <div class="card"><h3><i class="fas fa-brochure"></i> Brosur Travel</h3>
+                <div class="form-group"><label>Upload Brosur (Auto Rename ke brochure.jpg)</label>
+                    <div class="upload-area" id="brochureUploadArea" onclick="document.getElementById('brochureFileInput').click()">
+                        <i class="fas fa-cloud-upload-alt"></i><p><strong>Klik atau Drag & Drop</strong></p><input type="file" id="brochureFileInput" accept="image/*" onchange="handleBrochureFile(this)">
+                    </div>
+                    <div class="preview-rename-box" id="brochurePreviewBox">
+                        <div class="preview-header"><i class="fas fa-check-circle"></i><span>Brosur Siap!</span></div>
+                        <img id="brochurePreviewImg" class="preview-image"><div class="rename-info"><span class="old-name" id="brochureOldName"></span><span class="arrow">→</span><span class="new-name" id="brochureNewName">brochure.jpg</span></div>
+                        <button class="download-btn" onclick="downloadRenamedImage('brochure')"><i class="fas fa-download"></i> Download Brosur</button>
+                    </div>
+                </div>
+                <button onclick="saveWorkingBrochure()"><i class="fas fa-save"></i> Simpan Brosur ke Memori Kerja</button>
+                <div class="form-group" style="margin-top:20px;"><label>Fallback URL Brosur</label><input type="text" id="brochureFallback" placeholder="https://placehold.co/..."></div>
+            </div>
+            <div class="card"><h3><i class="fas fa-image"></i> Logo Perusahaan</h3>
+                <div class="form-group"><label>Upload Logo (Auto Rename ke logo.png)</label>
+                    <div class="upload-area" id="logoUploadArea" onclick="document.getElementById('logoFileInput').click()">
+                        <i class="fas fa-cloud-upload-alt"></i><p><strong>Klik atau Drag & Drop</strong></p><input type="file" id="logoFileInput" accept="image/*" onchange="handleLogoFile(this)">
+                    </div>
+                    <div class="preview-rename-box" id="logoPreviewBox">
+                        <div class="preview-header"><i class="fas fa-check-circle"></i><span>Logo Siap!</span></div>
+                        <img id="logoPreviewImg" class="preview-image"><div class="rename-info"><span class="old-name" id="logoOldName"></span><span class="arrow">→</span><span class="new-name" id="logoNewName">logo.png</span></div>
+                        <button class="download-btn" onclick="downloadRenamedImage('logo')"><i class="fas fa-download"></i> Download Logo</button>
+                    </div>
+                </div>
+                <button onclick="saveWorkingLogo()"><i class="fas fa-save"></i> Simpan Logo ke Memori Kerja</button>
+                <button onclick="removeWorkingLogo()" class="btn-secondary" style="margin-left:12px;"><i class="fas fa-trash"></i> Hapus Logo (Kerja)</button>
+                <div class="form-group" style="margin-top:20px;"><label>Fallback URL Logo</label><input type="text" id="logoFallback" placeholder="https://placehold.co/..."></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MITRA -->
+    <div id="mitra-tab" class="tab-content">
+        <div class="dashboard"><div class="card"><h3><i class="fas fa-user-tie"></i> Foto & Data Mitra</h3>
+            <div class="form-group"><label>Foto Mitra (Auto Rename ke mitra.jpg)</label>
+                <div class="upload-area" id="mitraUploadArea" onclick="document.getElementById('mitraFileInput').click()">
+                    <i class="fas fa-cloud-upload-alt"></i><p><strong>Upload Foto Mitra</strong></p><input type="file" id="mitraFileInput" accept="image/*" onchange="handleMitraFile(this)">
+                </div>
+                <div class="preview-rename-box" id="mitraPreviewBox">
+                    <div class="preview-header"><i class="fas fa-check-circle"></i><span>Foto Siap!</span></div>
+                    <img id="mitraPreviewImg" class="preview-image"><div class="rename-info"><span class="old-name" id="mitraOldName"></span><span class="arrow">→</span><span class="new-name" id="mitraNewName">mitra.jpg</span></div>
+                    <button class="download-btn" onclick="downloadRenamedImage('mitra')"><i class="fas fa-download"></i> Download Foto</button>
+                </div>
+            </div>
+            <button onclick="saveWorkingMitraPhoto()"><i class="fas fa-save"></i> Simpan Foto Mitra ke Memori Kerja</button>
+            <div style="margin-top:20px;"><label>Fallback URL Mitra</label><input type="text" id="mitraPhotoFallback" placeholder="https://placehold.co/150x150"></div>
+        </div></div>
+    </div>
+
+    <!-- EXPORT -->
+    <div id="export-tab" class="tab-content">
+        <div class="dashboard"><div class="card" style="grid-column:1/-1"><h3><i class="fas fa-download"></i> Export data.json ke GitHub</h3>
+            <div class="export-section"><h4><i class="fas fa-file-code"></i> Preview data.json (berdasarkan memori kerja saat ini)</h4><pre id="jsonPreview">// Klik "Generate Preview dari Memori Kerja"</pre>
+            <div style="display:flex; gap:12px; margin-top:16px; flex-wrap:wrap;">
+                <button onclick="generatePreviewFromWorking()" class="btn-warning"><i class="fas fa-eye"></i> Generate Preview (Dari Memori Kerja)</button>
+                <button onclick="downloadJSONFromWorking()" class="btn-success"><i class="fas fa-download"></i> Download data.json (Dari Memori Kerja)</button>
+                <button onclick="copyJSONFromWorking()" class="btn-secondary"><i class="fas fa-copy"></i> Copy JSON (Dari Memori Kerja)</button>
+            </div></div>
+            <div style="margin-top:20px; background:#eef7ff; padding:16px; border-radius:20px;"><p><i class="fas fa-info-circle"></i> <strong>Catatan:</strong> Data di atas adalah hasil perubahan yang sudah Anda simpan ke memori kerja. Untuk menyimpan semua perubahan ke data permanen (akan diekspor), pastikan Anda sudah mengklik tombol "Simpan" di setiap tab atau gunakan tombol global di bawah.</p></div>
+        </div></div>
+    </div>
+
+    <!-- Tombol global -->
+    <div style="display:flex; justify-content:center; margin-top:32px; gap:16px;">
+        <button id="globalSaveBtn" class="btn-success" style="padding:16px 32px;"><i class="fas fa-save"></i> Simpan Semua Perubahan ke Memori Kerja</button>
+        <button id="globalResetBtn" class="btn-danger" style="padding:16px 32px;"><i class="fas fa-undo-alt"></i> Reset ke Data Dummy (Hilangkan Semua Perubahan)</button>
+    </div>
+</div>
+
+<script>
+    // ======================= DATA DUMMY (default) =======================
+    const defaultData = {
+        settings: {
+            brandName: "Raudhatul Jannah Team",
+            tagline: "DIYANTO SAMIRA TRAVEL",
+            navHome: "Beranda", navBlog: "Blog", navMitra: "Mitra", navGallery: "Galeri", navMaps: "Lokasi", navWA: "Hubungi",
+            mitraTitle: "Mitra Resmi Samira Travel",
+            mitraName: "DIYANTO_MBS",
+            mitraAddress: "Perumahan Harapan Indah, Jl. Dahlia Indah 6 No.5 Blok JC, RT.001/RW.017, Pejuang, Kecamatan Medan Satria, Kota Bks, Jawa Barat 17131",
+            waNumber1: "6281213256820", waNumber2: "6281213256820",
+            galleryTitle: "Galeri Perjalanan", brochureTitle: "Program & Brosur",
+            brochureHeading: "Paket Umroh & Haji Furoda",
+            brochureDesc: "Dapatkan brosur digital dengan fasilitas lengkap, jadwal keberangkatan, dan promo terbaru dari mitra resmi Samira Travel.",
+            footerText: "Samira Travel • Melayani Ibadah dengan Hati",
+            footerAddress: "Mitra/Tour leader : DIYANTO (Harapan Indah, Bekasi)",
+            copyright: "© 2026 Samira Travel | Umroh & Haji Terpercaya",
+            mapsTitle: "Lokasi Mitra Kami",
+            mapsAddress: "Perumahan Harapan Indah, Jl. Dahlia Indah 6 No.5 Blok JC, RT.001/RW.017, Pejuang, Kecamatan Medan Satria, Kota Bks, Jawa Barat 17131",
+            blogTitle: "Wujudkan Impian Anda dan Keluarga ke Baitullah Bersama Samira Travel",
+            contactName: "DIYANTO_MBS", contactWA: "6281213256820", contactPhone: "6281213256820"
+        },
+        colors: { primary:"#1c84b5", primaryDark:"#0f678f", secondary:"#6ec1e4", bgLight:"#f0f9ff", textDark:"#1a3a4f", textLight:"#2c5f78", navbarBg:"rgba(255,255,255,0.96)", footerBg:"#e0f0f8" },
+        mapLocation: { lat:-6.1772852, lng:106.98265, zoom:15 },
+        carousel: [
+            { id:"1", title:"Selamat Datang di Samira Travel", caption:"Perjalanan Ibadah yang Nyaman", image:"./assets/carousel/slide_1.jpg", fallback:"https://placehold.co/1920x500/1c84b5/white?text=Umroh+2025" },
+            { id:"2", title:"Dapatkan Harga Terbaik", caption:"Promo Early Bird 2025", image:"./assets/carousel/slide_2.jpg", fallback:"https://placehold.co/1920x500/0b5e7e/white?text=Haji+Khusus" }
+        ],
+        gallery: [
+            { id:"1", caption:"Masjid Nabawi - Madinah", type:"image", url:"./assets/gallery/gallery_1.jpg", fallback:"https://placehold.co/600x400/3a8bbb/white?text=Masjid+Nabawi" },
+            { id:"2", caption:"Ka'bah - Mekah", type:"image", url:"./assets/gallery/gallery_2.jpg", fallback:"https://placehold.co/600x400/2c9bcf/white?text=Ka'bah" },
+            { id:"3", caption:"Jamaah Samira Travel", type:"image", url:"./assets/gallery/gallery_3.jpg", fallback:"https://placehold.co/600x400/6ec1e4/white?text=Jamaah" },
+            { id:"4", caption:"Video Perjalanan Umroh - Momen Haru", type:"video", url:"https://www.youtube.com/embed/dQw4w9WgXcQ", thumbnail:"https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg", fallback:"https://placehold.co/600x400/2c9bcf/white?text=Video+Umroh" }
+        ],
+        services: [
+            { title:"GRATIS PEMBUATAN PASSPORT", desc:"Free pembuatan passport untuk jamaah agar jamaah segera berangkat umroh. Pengurusan dilayani dengan baik dan profesional.", icon:"fas fa-passport" },
+            { title:"Hotel Bintang 5", desc:"Akomodasi terbaik dekat Masjidil Haram dan Nabawi, plus konsumsi premium.", icon:"fas fa-hotel" },
+            { title:"Transportasi Eksklusif", desc:"Bus pariwisata ber-AC dengan driver ramah dan berpengalaman di tanah suci.", icon:"fas fa-bus" }
+        ],
+        blogPosts: [
+            { id:"1", title:"Tips Mempersiapkan Umroh Pertama Kali", excerpt:"Persiapan fisik, mental, dan administrasi untuk umroh yang mabrur.", content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit...", date:"2025-01-15", image:"https://placehold.co/600x400/1c84b5/white?text=Tips+Umroh" },
+            { id:"2", title:"Keutamaan Ibadah di Bulan Ramadhan", excerpt:"Rahasia pahala berlipat ganda saat melaksanakan umroh di bulan suci.", content:"Lorem ipsum dolor sit amet...", date:"2025-02-20", image:"https://placehold.co/600x400/6ec1e4/white?text=Ramadhan" }
+        ],
+        brochure: "./assets/brochure/brochure.jpg",
+        brochureFallback: "https://placehold.co/320x420/bfe2f2/0d5f7e?text=Brosur+Samira",
+        logo: "./assets/logo/logo.png",
+        logoFallback: "https://placehold.co/200x60/bfdff0/1c6c8f?text=Samira",
+        mitraPhoto: "./assets/mitra/mitra_photo.jpg",
+        mitraPhotoFallback: "https://placehold.co/150x150/3a8bbb/white?text=Mitra"
+    };
+
+    let workingData = JSON.parse(JSON.stringify(defaultData));
+    let mapPreview = null;
+    let tempFiles = { carousel:null, gallery:null, brochure:null, logo:null, mitra:null, blog:null };
+
+    function showToast(msg, isError=false) {
+        const existing = document.querySelector('.toast');
+        if (existing) existing.remove();
+        const div = document.createElement('div');
+        div.className = 'toast' + (isError ? ' error' : '');
+        div.innerHTML = `<i class="fas fa-${isError ? 'exclamation-triangle' : 'check-circle'}"></i> ${msg}`;
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), 3000);
+    }
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]); }
+
+    // ========== RENDER UI dari workingData ==========
+    function renderAllFromWorking() {
+        const s = workingData.settings;
+        const fields = ['brandName','tagline','navHome','navBlog','navMitra','navGallery','navMaps','navWA','mitraTitle','mitraName','mitraAddress','waNumber1','waNumber2','galleryTitle','brochureTitle','brochureHeading','brochureDesc','footerText','footerAddress','copyright','mapsTitle','mapsAddress','blogTitle','contactName','contactWA','contactPhone'];
+        fields.forEach(f => { const el = document.getElementById(f); if(el) el.value = s[f] || ''; });
+        const c = workingData.colors;
+        document.getElementById('primaryColor').value = c.primary;
+        document.getElementById('primaryDarkColor').value = c.primaryDark;
+        document.getElementById('secondaryColor').value = c.secondary;
+        document.getElementById('bgLightColor').value = c.bgLight;
+        document.getElementById('textDarkColor').value = c.textDark;
+        document.getElementById('textLightColor').value = c.textLight;
+        document.getElementById('navbarBgColor').value = c.navbarBg;
+        document.getElementById('footerBgColor').value = c.footerBg;
+        document.getElementById('primaryColorVal').innerText = c.primary;
+        document.getElementById('primaryDarkVal').innerText = c.primaryDark;
+        document.getElementById('secondaryColorVal').innerText = c.secondary;
+        document.getElementById('mapLat').value = workingData.mapLocation.lat;
+        document.getElementById('mapLng').value = workingData.mapLocation.lng;
+        document.getElementById('mapZoom').value = workingData.mapLocation.zoom;
+        document.getElementById('brochureFallback').value = workingData.brochureFallback || '';
+        document.getElementById('logoFallback').value = workingData.logoFallback || '';
+        document.getElementById('mitraPhotoFallback').value = workingData.mitraPhotoFallback || '';
+        renderCarouselList();
+        renderGalleryList();
+        renderServicesList();
+        renderBlogList();
+        updateMapsPreviewOnly();
+    }
+
+    // ========== CAROUSEL ==========
+    function renderCarouselList() {
+        const container = document.getElementById('carouselList');
+        if(!container) return;
+        if(workingData.carousel.length===0) { container.innerHTML='<p style="padding:40px;text-align:center;">Belum ada slide</p>'; return; }
+        container.innerHTML = workingData.carousel.map((item,idx)=>`
+            <div class="item-card">
+                <img src="${item._previewBase64||item.fallback}" onerror="this.src='https://placehold.co/70x70'">
+                <div class="item-info">
+                    <strong>${escapeHtml(item.title)}</strong>
+                    <small>${escapeHtml(item.caption)}</small>
+                    <span class="file-name">📁 ${item.image.split('/').pop()}</span>
+                </div>
+                <div>
+                    <button onclick="editCarouselWorking(${idx})" style="background:#f59e0b; margin-right:8px;">Edit</button>
+                    <button class="delete-btn" onclick="deleteCarouselWorking(${idx})"><i class="fas fa-trash"></i> Hapus</button>
+                </div>
+            </div>
+        `).join('');
+    }
+    function addWorkingCarousel() {
+        const title = document.getElementById('carouselTitle').value.trim();
+        const caption = document.getElementById('carouselCaption').value.trim();
+        const fd = tempFiles.carousel;
+        if(!title) return showToast('❌ Judul harus diisi', true);
+        if(!fd) return showToast('❌ Upload foto dulu!', true);
+        workingData.carousel.push({ id:Date.now().toString(), title, caption, image:`./assets/carousel/${fd.newName}`, fallback:`https://placehold.co/1920x500/1c84b5/white?text=${encodeURIComponent(title)}`, _previewBase64:fd.base64 });
+        renderCarouselList();
+        document.getElementById('carouselTitle').value = '';
+        document.getElementById('carouselCaption').value = '';
+        document.getElementById('carouselFileInput').value = '';
+        document.getElementById('carouselPreviewBox').classList.remove('show');
+        tempFiles.carousel = null;
+        showToast(`✅ Slide ditambahkan ke memori kerja.`);
+    }
+    function editCarouselWorking(idx) {
+        const newTitle = prompt("Edit Judul:", workingData.carousel[idx].title);
+        if(newTitle !== null) workingData.carousel[idx].title = newTitle;
+        const newCaption = prompt("Edit Caption:", workingData.carousel[idx].caption);
+        if(newCaption !== null) workingData.carousel[idx].caption = newCaption;
+        renderCarouselList();
+        showToast('✅ Slide diperbarui');
+    }
+    function deleteCarouselWorking(idx) {
+        if(confirm('Hapus slide ini?')) { workingData.carousel.splice(idx,1); renderCarouselList(); showToast('Slide dihapus'); }
+    }
+
+    // ========== GALLERY ==========
+    function renderGalleryList() {
+        const container = document.getElementById('galleryList');
+        if(!container) return;
+        if(workingData.gallery.length===0) { container.innerHTML='<p style="padding:40px;text-align:center;">Belum ada foto</p>'; return; }
+        container.innerHTML = workingData.gallery.map((item,idx)=>`
+            <div class="item-card">
+                <img src="${item._previewBase64||item.fallback}" onerror="this.src='https://placehold.co/70x70'">
+                <div class="item-info">
+                    <strong>${escapeHtml(item.caption)}</strong>
+                    <span class="file-name">📁 ${item.url.split('/').pop()}</span>
+                </div>
+                <div>
+                    <button onclick="editGalleryWorking(${idx})" style="background:#f59e0b; margin-right:8px;">Edit Caption</button>
+                    <button class="delete-btn" onclick="deleteGalleryWorking(${idx})"><i class="fas fa-trash"></i> Hapus</button>
+                </div>
+            </div>
+        `).join('');
+    }
+    function addWorkingGallery() {
+        const caption = document.getElementById('galleryCaptionInput').value.trim();
+        const fd = tempFiles.gallery;
+        if(!caption) return showToast('❌ Caption harus diisi', true);
+        if(!fd) return showToast('❌ Upload foto dulu!', true);
+        workingData.gallery.push({ id:Date.now().toString(), caption, type:'image', url:`./assets/gallery/${fd.newName}`, fallback:`https://placehold.co/600x400/3a8bbb/white?text=${encodeURIComponent(caption)}`, _previewBase64:fd.base64 });
+        renderGalleryList();
+        document.getElementById('galleryCaptionInput').value = '';
+        document.getElementById('galleryFileInput').value = '';
+        document.getElementById('galleryPreviewBox').classList.remove('show');
+        tempFiles.gallery = null;
+        showToast(`✅ Foto ditambahkan ke memori kerja.`);
+    }
+    function editGalleryWorking(idx) {
+        const newCaption = prompt("Edit Caption:", workingData.gallery[idx].caption);
+        if(newCaption !== null) { workingData.gallery[idx].caption = newCaption; renderGalleryList(); showToast('Caption diperbarui'); }
+    }
+    function deleteGalleryWorking(idx) {
+        if(confirm('Hapus foto ini?')) { workingData.gallery.splice(idx,1); renderGalleryList(); showToast('Foto dihapus'); }
+    }
+
+    // ========== SERVICES ==========
+    function renderServicesList() {
+        const container = document.getElementById('servicesList');
+        if(!container) return;
+        container.innerHTML = workingData.services.map((item,idx)=>`
+            <div class="item-card">
+                <i class="${item.icon}" style="font-size:40px; width:60px; text-align:center"></i>
+                <div class="item-info">
+                    <input type="text" value="${escapeHtml(item.title)}" placeholder="Judul" id="svTitle${idx}" style="margin-bottom:8px;">
+                    <textarea placeholder="Deskripsi" id="svDesc${idx}" style="margin-bottom:8px;">${escapeHtml(item.desc)}</textarea>
+                    <input type="text" value="${item.icon}" placeholder="Icon class" id="svIcon${idx}">
+                </div>
+                <div>
+                    <button onclick="updateServiceWorking(${idx})">Update</button>
+                    <button class="delete-btn" onclick="deleteServiceWorking(${idx})">Hapus</button>
+                </div>
+            </div>
+        `).join('');
+    }
+    function updateServiceWorking(idx) {
+        workingData.services[idx].title = document.getElementById(`svTitle${idx}`).value;
+        workingData.services[idx].desc = document.getElementById(`svDesc${idx}`).value;
+        workingData.services[idx].icon = document.getElementById(`svIcon${idx}`).value;
+        showToast('Layanan diupdate');
+    }
+    function deleteServiceWorking(idx) {
+        if(confirm('Hapus layanan ini?')) { workingData.services.splice(idx,1); renderServicesList(); showToast('Layanan dihapus'); }
+    }
+    function addWorkingService() { workingData.services.push({title:"Layanan Baru", desc:"Deskripsi", icon:"fas fa-star"}); renderServicesList(); showToast('Layanan baru ditambahkan'); }
+
+    // ========== BLOG dengan Upload Gambar ==========
+    function renderBlogList() {
+        const container = document.getElementById('blogList');
+        if(!container) return;
+        if(workingData.blogPosts.length===0) { container.innerHTML='<p style="padding:40px;text-align:center;">Belum ada artikel</p>'; return; }
+        container.innerHTML = workingData.blogPosts.map((post,idx)=>`
+            <div class="item-card">
+                <img src="${post._previewBase64||post.image}" style="width:70px;height:70px;object-fit:cover;border-radius:16px;" onerror="this.src='https://placehold.co/70x70'">
+                <div class="item-info">
+                    <input type="text" value="${escapeHtml(post.title)}" placeholder="Judul" id="blogTitle${idx}" style="margin-bottom:4px;">
+                    <input type="text" value="${escapeHtml(post.excerpt)}" placeholder="Excerpt" id="blogExcerpt${idx}" style="margin-bottom:4px;">
+                    <input type="text" value="${post.image}" placeholder="URL Gambar (auto dari upload)" id="blogImg${idx}" style="margin-bottom:4px;">
+                    <input type="date" value="${post.date}" id="blogDate${idx}">
+                </div>
+                <div>
+                    <button onclick="updateBlogWorking(${idx})">Update</button>
+                    <button class="delete-btn" onclick="deleteBlogWorking(${idx})">Hapus</button>
+                </div>
+            </div>
+        `).join('');
+    }
+    function updateBlogWorking(idx) {
+        workingData.blogPosts[idx].title = document.getElementById(`blogTitle${idx}`).value;
+        workingData.blogPosts[idx].excerpt = document.getElementById(`blogExcerpt${idx}`).value;
+        workingData.blogPosts[idx].image = document.getElementById(`blogImg${idx}`).value;
+        workingData.blogPosts[idx].date = document.getElementById(`blogDate${idx}`).value;
+        showToast('Blog diupdate');
+    }
+    function deleteBlogWorking(idx) {
+        if(confirm('Hapus artikel ini?')) { workingData.blogPosts.splice(idx,1); renderBlogList(); showToast('Artikel dihapus'); }
+    }
+    function addWorkingBlogWithImage() {
+        const title = document.getElementById('newBlogTitle').value.trim();
+        const excerpt = document.getElementById('newBlogExcerpt').value.trim();
+        const date = document.getElementById('newBlogDate').value;
+        const fd = tempFiles.blog;
+        if(!title) return showToast('❌ Judul harus diisi', true);
+        if(!fd) return showToast('❌ Upload gambar artikel dulu!', true);
+        const newPost = {
+            id: Date.now().toString(),
+            title: title,
+            excerpt: excerpt,
+            content: "",
+            date: date || new Date().toISOString().slice(0,10),
+            image: `./assets/blog/${fd.newName}`,
+            _previewBase64: fd.base64
+        };
+        workingData.blogPosts.push(newPost);
+        renderBlogList();
+        document.getElementById('newBlogTitle').value = '';
+        document.getElementById('newBlogExcerpt').value = '';
+        document.getElementById('newBlogDate').value = '';
+        document.getElementById('blogFileInput').value = '';
+        document.getElementById('blogPreviewBox').classList.remove('show');
+        tempFiles.blog = null;
+        showToast(`✅ Artikel blog ditambahkan ke memori kerja. Gambar: ${fd.newName}`);
+    }
+
+    // ========== SETTINGS / MAPS / BROSUR / LOGO / MITRA ==========
+    function saveWorkingSettings() {
+        const fields = ['brandName','tagline','navHome','navBlog','navMitra','navGallery','navMaps','navWA','mitraTitle','mitraName','mitraAddress','waNumber1','waNumber2','galleryTitle','brochureTitle','brochureHeading','brochureDesc','footerText','footerAddress','copyright','mapsTitle','mapsAddress','blogTitle','contactName','contactWA','contactPhone'];
+        fields.forEach(f => { const el = document.getElementById(f); if(el) workingData.settings[f] = el.value; });
+        const colorMap = { primaryColor:'primary', primaryDarkColor:'primaryDark', secondaryColor:'secondary', bgLightColor:'bgLight', textDarkColor:'textDark', textLightColor:'textLight', navbarBgColor:'navbarBg', footerBgColor:'footerBg' };
+        Object.entries(colorMap).forEach(([id,key]) => { const el = document.getElementById(id); if(el) workingData.colors[key] = el.value; });
+        showToast('Pengaturan dan warna disimpan ke memori kerja');
+    }
+    function saveWorkingMap() {
+        workingData.mapLocation.lat = parseFloat(document.getElementById('mapLat').value);
+        workingData.mapLocation.lng = parseFloat(document.getElementById('mapLng').value);
+        workingData.mapLocation.zoom = parseInt(document.getElementById('mapZoom').value);
+        updateMapsPreviewOnly();
+        showToast('Lokasi maps disimpan ke memori kerja');
+    }
+    function saveWorkingBrochure() {
+        if(tempFiles.brochure) {
+            workingData.brochure = `./assets/brochure/${tempFiles.brochure.newName}`;
+            workingData._brochurePreviewBase64 = tempFiles.brochure.base64;
+        }
+        workingData.brochureFallback = document.getElementById('brochureFallback').value;
+        showToast('Brosur disimpan ke memori kerja');
+    }
+    function saveWorkingLogo() {
+        if(tempFiles.logo) {
+            workingData.logo = `./assets/logo/${tempFiles.logo.newName}`;
+            workingData._logoPreviewBase64 = tempFiles.logo.base64;
+        }
+        workingData.logoFallback = document.getElementById('logoFallback').value;
+        showToast('Logo disimpan ke memori kerja');
+    }
+    function removeWorkingLogo() {
+        workingData.logo = '';
+        delete workingData._logoPreviewBase64;
+        showToast('Logo dihapus dari memori kerja');
+    }
+    function saveWorkingMitraPhoto() {
+        if(tempFiles.mitra) {
+            workingData.mitraPhoto = `./assets/mitra/${tempFiles.mitra.newName}`;
+            workingData._mitraPreviewBase64 = tempFiles.mitra.base64;
+        }
+        workingData.mitraPhotoFallback = document.getElementById('mitraPhotoFallback').value;
+        showToast('Foto mitra disimpan ke memori kerja');
+    }
+
+    // ========== MAPS PREVIEW ==========
+    function updateMapsPreviewOnly() {
+        const lat = parseFloat(document.getElementById('mapLat').value) || workingData.mapLocation.lat;
+        const lng = parseFloat(document.getElementById('mapLng').value) || workingData.mapLocation.lng;
+        const zoom = parseInt(document.getElementById('mapZoom').value) || workingData.mapLocation.zoom;
+        if(mapPreview) mapPreview.remove();
+        mapPreview = L.map('mapsPreview').setView([lat,lng], zoom);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'OSM'}).addTo(mapPreview);
+        L.marker([lat,lng]).addTo(mapPreview).bindPopup('Samira Travel').openPopup();
+    }
+
+    // ========== AUTO RENAME & UPLOAD ==========
+    function generateNewFileName(originalName, type) {
+        const ext = originalName.split('.').pop().toLowerCase();
+        const validExt = ['jpg','jpeg','png','webp'].includes(ext) ? ext : 'jpg';
+        switch(type) {
+            case 'carousel': return `slide_${workingData.carousel.length+1}.${validExt}`;
+            case 'gallery': return `gallery_${workingData.gallery.length+1}.${validExt}`;
+            case 'brochure': return `brochure.${validExt}`;
+            case 'logo': return `logo.${validExt}`;
+            case 'mitra': return `mitra.${validExt}`;
+            case 'blog': return `blog_${workingData.blogPosts.length+1}.${validExt}`;
+            default: return originalName;
+        }
+    }
+    function handleFileUpload(file, type) {
+        if(!file) return;
+        const oldName = file.name, newName = generateNewFileName(oldName, type);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            tempFiles[type] = { oldName, newName, base64: e.target.result, file };
+            const oldSpan = document.getElementById(`${type}OldName`);
+            const newSpan = document.getElementById(`${type}NewName`);
+            const previewImg = document.getElementById(`${type}PreviewImg`);
+            const box = document.getElementById(`${type}PreviewBox`);
+            if(oldSpan) oldSpan.textContent = oldName;
+            if(newSpan) newSpan.textContent = newName;
+            if(previewImg) previewImg.src = e.target.result;
+            if(box) box.classList.add('show');
+            showToast(`✅ Auto rename: ${oldName} → ${newName}`);
+        };
+        reader.readAsDataURL(file);
+    }
+    function handleCarouselFile(i) { if(i.files[0]) handleFileUpload(i.files[0], 'carousel'); }
+    function handleGalleryFile(i) { if(i.files[0]) handleFileUpload(i.files[0], 'gallery'); }
+    function handleBrochureFile(i) { if(i.files[0]) handleFileUpload(i.files[0], 'brochure'); }
+    function handleLogoFile(i) { if(i.files[0]) handleFileUpload(i.files[0], 'logo'); }
+    function handleMitraFile(i) { if(i.files[0]) handleFileUpload(i.files[0], 'mitra'); }
+    function handleBlogFile(i) { if(i.files[0]) handleFileUpload(i.files[0], 'blog'); }
+    function downloadRenamedImage(type) {
+        const fd = tempFiles[type];
+        if(!fd) return showToast('❌ Upload foto dulu!', true);
+        const a = document.createElement('a');
+        a.href = fd.base64; a.download = fd.newName; a.click();
+        showToast(`📥 ${fd.newName} didownload! Upload ke GitHub.`);
+    }
+
+    // ========== EXPORT dari workingData ==========
+    function cleanWorkingForExport() {
+        const cleaned = JSON.parse(JSON.stringify(workingData));
+        if (cleaned.carousel) cleaned.carousel = cleaned.carousel.map(({_previewBase64, ...rest}) => rest);
+        if (cleaned.gallery) cleaned.gallery = cleaned.gallery.map(({_previewBase64, ...rest}) => rest);
+        if (cleaned.blogPosts) cleaned.blogPosts = cleaned.blogPosts.map(({_previewBase64, ...rest}) => rest);
+        delete cleaned._brochurePreviewBase64;
+        delete cleaned._logoPreviewBase64;
+        delete cleaned._mitraPreviewBase64;
+        return cleaned;
+    }
+    function generatePreviewFromWorking() {
+        const cleaned = cleanWorkingForExport();
+        document.getElementById('jsonPreview').textContent = JSON.stringify(cleaned, null, 2);
+        showToast('✅ Preview berdasarkan memori kerja');
+    }
+    function downloadJSONFromWorking() {
+        const cleaned = cleanWorkingForExport();
+        const blob = new Blob([JSON.stringify(cleaned, null, 2)], {type:'application/json'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'data.json';
+        a.click();
+        showToast('📥 data.json didownload');
+    }
+    function copyJSONFromWorking() {
+        const cleaned = cleanWorkingForExport();
+        navigator.clipboard.writeText(JSON.stringify(cleaned, null, 2))
+            .then(() => showToast('📋 JSON dicopy'))
+            .catch(() => showToast('❌ Gagal copy', true));
+    }
+
+    // ========== GLOBAL ==========
+    function globalSaveToWorking() {
+        saveWorkingSettings();
+        saveWorkingMap();
+        saveWorkingBrochure();
+        saveWorkingLogo();
+        saveWorkingMitraPhoto();
+        showToast('✅ Semua perubahan dari form disimpan ke memori kerja');
+    }
+    function globalResetToDummy() {
+        if(confirm('⚠️ Reset semua data ke dummy? Semua perubahan yang belum diekspor akan hilang!')) {
+            workingData = JSON.parse(JSON.stringify(defaultData));
+            renderAllFromWorking();
+            showToast('🔄 Data direset ke dummy');
+        }
+    }
+
+    // ========== TAB ==========
+    function showTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+        document.getElementById(tabName+'-tab').classList.add('active');
+        document.querySelectorAll('.tab-btn').forEach(btn=>{ if(btn.textContent.toLowerCase().includes(tabName)) btn.classList.add('active'); });
+        if(tabName==='maps') setTimeout(updateMapsPreviewOnly,100);
+        if(tabName==='export') generatePreviewFromWorking();
+    }
+
+    function setupDragDrop(areaId, type) {
+        const area = document.getElementById(areaId);
+        if(!area) return;
+        ['dragenter','dragover','dragleave','drop'].forEach(ev=>area.addEventListener(ev, e=>{ e.preventDefault(); e.stopPropagation(); }));
+        ['dragenter','dragover'].forEach(ev=>area.addEventListener(ev,()=>area.classList.add('dragover')));
+        ['dragleave','drop'].forEach(ev=>area.addEventListener(ev,()=>area.classList.remove('dragover')));
+        area.addEventListener('drop', e=>{ const file = e.dataTransfer.files[0]; if(file) handleFileUpload(file, type); });
+    }
+
+    function init() {
+        renderAllFromWorking();
+        setupDragDrop('carouselUploadArea','carousel');
+        setupDragDrop('galleryUploadArea','gallery');
+        setupDragDrop('brochureUploadArea','brochure');
+        setupDragDrop('logoUploadArea','logo');
+        setupDragDrop('mitraUploadArea','mitra');
+        setupDragDrop('blogUploadArea','blog');
+        document.getElementById('globalSaveBtn').addEventListener('click', globalSaveToWorking);
+        document.getElementById('globalResetBtn').addEventListener('click', globalResetToDummy);
+    }
+
+    window.showTab = showTab;
+    window.handleCarouselFile = handleCarouselFile; window.handleGalleryFile = handleGalleryFile;
+    window.handleBrochureFile = handleBrochureFile; window.handleLogoFile = handleLogoFile;
+    window.handleMitraFile = handleMitraFile; window.handleBlogFile = handleBlogFile;
+    window.downloadRenamedImage = downloadRenamedImage;
+    window.addWorkingCarousel = addWorkingCarousel; window.addWorkingGallery = addWorkingGallery;
+    window.addWorkingService = addWorkingService; window.addWorkingBlogWithImage = addWorkingBlogWithImage;
+    window.editCarouselWorking = editCarouselWorking; window.deleteCarouselWorking = deleteCarouselWorking;
+    window.editGalleryWorking = editGalleryWorking; window.deleteGalleryWorking = deleteGalleryWorking;
+    window.updateServiceWorking = updateServiceWorking; window.deleteServiceWorking = deleteServiceWorking;
+    window.updateBlogWorking = updateBlogWorking; window.deleteBlogWorking = deleteBlogWorking;
+    window.saveWorkingSettings = saveWorkingSettings; window.saveWorkingMap = saveWorkingMap;
+    window.saveWorkingBrochure = saveWorkingBrochure; window.saveWorkingLogo = saveWorkingLogo;
+    window.removeWorkingLogo = removeWorkingLogo; window.saveWorkingMitraPhoto = saveWorkingMitraPhoto;
+    window.updateMapsPreviewOnly = updateMapsPreviewOnly;
+    window.generatePreviewFromWorking = generatePreviewFromWorking;
+    window.downloadJSONFromWorking = downloadJSONFromWorking;
+    window.copyJSONFromWorking = copyJSONFromWorking;
+
+    init();
+    console.log('🚀 Admin Panel Final siap digunakan. Blog sekarang support upload gambar!');
+</script>
+</body>
+</html>
