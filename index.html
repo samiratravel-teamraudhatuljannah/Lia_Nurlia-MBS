@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Samira Travel | Umroh & Haji Terpercaya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff;
+            color: #1e2f3a;
+            padding-bottom: 70px;
+        }
+
+        :root {
+            --primary: #1c84b5;
+            --primary-dark: #0f678f;
+            --secondary: #6ec1e4;
+            --bg-light: #f0f9ff;
+            --text-dark: #1a3a4f;
+            --text-light: #2c5f78;
+            --navbar-bg: rgba(255, 255, 255, 0.96);
+            --footer-bg: #e0f0f8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========== DESKTOP NAVBAR ========== */
+        .navbar-desktop {
+            background: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* ========== MOBILE HEADER ========== */
+        .mobile-header {
+            background: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 10px 16px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-header .logo-img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .mobile-header .brand-text h1 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .mobile-header .brand-text p {
+            font-size: 0.65rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* ========== DESKTOP LOGO AREA ========== */
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-text h1 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* ========== MOBILE BOTTOM NAVBAR ========== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            z-index: 200;
+            border-top: 1px solid #ddd;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-light);
+            text-decoration: none;
+            gap: 4px;
+        }
+
+        .bottom-nav-item i {
+            font-size: 22px;
+        }
+
+        .bottom-nav-item.active,
+        .bottom-nav-item:hover {
+            color: var(--primary);
+        }
+
+        /* ========== FLOATING WA ========== */
+        .floating-wa {
+            position: fixed;
+            bottom: 85px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .floating-wa:hover {
+            transform: scale(1.05);
+            background-color: #20b85f;
+        }
+
+        /* Hero Swiper */
+        .hero-swiper {
+            width: 100%;
+            height: 450px;
+            margin-bottom: 40px;
+        }
+
+        .hero-swiper .swiper-slide {
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero-caption {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        /* Sections */
+        section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary-dark);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+            margin: 10px auto 0;
+        }
+
+        .service-card {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+
+        .service-card i {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+            height: 100%;
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.25s ease, opacity 0.2s ease;
+        }
+        
+        .blog-card img:hover {
+            transform: scale(1.02);
+            opacity: 0.92;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .mitra-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-light);
+            padding: 40px;
+            border-radius: 30px;
+        }
+
+        .mitra-photo img {
+            width: 100%;
+            height: 210px;
+            border-radius: 0%;
+            object-fit: cover;
+            border: 0px solid var(--secondary);
+        }
+
+        .gallery-swiper .swiper-slide {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .gallery-swiper .swiper-slide img,
+        .gallery-video-thumb {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            transition: 0.2s;
+        }
+        .gallery-swiper .swiper-slide:hover img {
+            transform: scale(1.01);
+            opacity: 0.95;
+        }
+
+        .gallery-caption {
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        .brochure-section {
+            background: linear-gradient(135deg, var(--bg-light), #fff);
+            border-radius: 30px;
+            padding: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brochure-img img {
+            max-width: 280px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .wa-btn {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        #map {
+            height: 400px;
+            border-radius: 24px;
+            z-index: 1;
+        }
+
+        .map-link {
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        footer {
+            background: var(--footer-bg);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 60px;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .error-container {
+            text-align: center;
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 600px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .error-container h2 {
+            color: #dc3545;
+        }
+
+        .error-container ul {
+            text-align: left;
+            color: #666;
+            margin: 20px 0;
+        }
+
+        .error-container button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .navbar-desktop {
+                display: none;
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            .bottom-nav {
+                display: flex;
+            }
+
+            .hero-swiper {
+                height: 300px;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .floating-wa {
+                bottom: 80px;
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .navbar-desktop {
+                padding: 10px 0;
+            }
+            .nav-links {
+                gap: 15px;
+            }
+            .hero-swiper {
+                height: 380px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Floating WA Button -->
+<a href="#" id="floatingWaBtn" class="floating-wa" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<!-- DESKTOP NAVBAR -->
+<div class="container">
+    <div class="navbar-desktop" id="desktopNav">
+        <div class="logo-area">
+            <img id="logoImgDesktop" class="logo-img" src="" alt="Logo Samira Travel">
+            <div class="brand-text">
+                <h1 id="brandNameDesktop">Samira Travel</h1>
+                <p id="taglineDesktop"></p>
+            </div>
+        </div>
+        <ul class="nav-links" id="navLinksDesktop"></ul>
+    </div>
+</div>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header" id="mobileHeader">
+    <img id="logoImgMobile" class="logo-img" src="" alt="Logo Samira Travel">
+    <div class="brand-text">
+        <h1 id="brandNameMobile">Samira Travel</h1>
+        <p id="taglineMobile"></p>
+    </div>
+</div>
+
+<!-- Hero Slider -->
+<div class="hero-swiper swiper" id="heroSwiper">
+    <div class="swiper-wrapper" id="heroWrapper"></div>
+    <div class="swiper-pagination"></div>
+</div>
+
+<!-- Main Content -->
+<main class="container">
+    <section id="servicesSection">
+        <h2 class="section-title">Layanan Unggulan</h2>
+        <div class="swiper services-swiper" id="servicesSwiper">
+            <div class="swiper-wrapper" id="servicesWrapper"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section id="mitraSection">
+        <div class="mitra-wrapper" id="mitraContent"></div>
+    </section>
+
+    <section id="gallerySection">
+        <h2 class="section-title" id="galleryTitle">Galeri Perjalanan</h2>
+        <div class="swiper gallery-swiper" id="gallerySwiper">
+            <div class="swiper-wrapper" id="galleryWrapper"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section id="blogSection">
+        <h2 class="section-title" id="blogTitle">Blog</h2>
+        <div class="swiper blog-swiper" id="blogSwiper">
+            <div class="swiper-wrapper" id="blogWrapper"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="brochure-section" id="brochureSection"></div>
+    </section>
+
+    <section>
+        <h2 class="section-title" id="mapsTitle">Lokasi Mitra</h2>
+        <div id="map"></div>
+        <div class="map-link" id="mapLink"></div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer id="secretFooter">
+    <div class="container">
+        <p id="footerText"></p>
+        <p id="footerAddress"></p>
+        <small id="copyright"></small>
+    </div>
+</footer>
+
+<!-- Mobile Bottom Navbar -->
+<div class="bottom-nav" id="bottomNav"></div>
+
+<!-- Modal -->
+<div id="mediaModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <div class="modal-content" id="modalContent"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    let mapInstance = null;
+    let heroSwiper, servicesSwiper, gallerySwiper, blogSwiper;
+    let currentData = null;
+    let clickCount = 0;
+    let clickTimer = null;
+
+    // Fungsi untuk menampilkan error yang informatif
+    function showError(message, details = '') {
+        const errorHtml = `
+            <div class="error-container">
+                <h2>⚠️ Gagal Memuat Data</h2>
+                <p style="color:#dc3545;margin:10px 0">${message}</p>
+                ${details ? `<p style="color:#666;font-size:14px">${details}</p>` : ''}
+                <hr style="margin:20px 0">
+                <h4>Solusi untuk GitHub Pages:</h4>
+                <ul>
+                    <li>Pastikan file <strong>data.json</strong> ada di folder yang sama dengan index.html</li>
+                    <li>Pastikan semua folder dan file menggunakan huruf <strong>kecil semua</strong></li>
+                    <li>Periksa struktur folder di repository GitHub Anda</li>
+                    <li>Hard refresh dengan <strong>Ctrl + F5</strong> (Windows) atau <strong>Cmd + Shift + R</strong> (Mac)</li>
+                </ul>
+                <p style="margin-top:20px;font-size:12px;color:#999">
+                    URL saat ini: ${window.location.href}<br>
+                    Coba akses langsung: <a href="data.json" target="_blank">data.json</a>
+                </p>
+                <button onclick="location.reload()">🔄 Muat Ulang Halaman</button>
+            </div>
+        `;
+        document.body.innerHTML = errorHtml;
+    }
+
+    async function loadData() {
+        try {
+            console.log('Mencoba memuat data.json...');
+            console.log('URL saat ini:', window.location.href);
+            
+            // Coba beberapa kemungkinan path untuk GitHub Pages
+            let data = null;
+            let paths = ['data.json', './data.json'];
+            
+            // Jika di subfolder, tambahkan path dengan base path
+            const pathname = window.location.pathname;
+            if (pathname.includes('/') && !pathname.endsWith('/index.html') && !pathname.endsWith('/')) {
+                const basePath = pathname.substring(0, pathname.lastIndexOf('/') + 1);
+                paths.unshift(basePath + 'data.json');
+            }
+            
+            for (let path of paths) {
+                try {
+                    console.log('Mencoba path:', path);
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        data = await response.json();
+                        console.log('Berhasil memuat data dari:', path);
+                        break;
+                    }
+                } catch (e) {
+                    console.log('Gagal dari path:', path, e.message);
+                }
+            }
+            
+            if (!data) {
+                throw new Error('Tidak dapat menemukan data.json');
+            }
+            
+            currentData = data;
+            applyColors(currentData.colors);
+            renderAll(currentData);
+        } catch(err) {
+            console.error('Error detail:', err);
+            showError(err.message, 'Pastikan file data.json sudah di-upload ke repository GitHub Anda.');
+        }
+    }
+
+    function applyColors(colors) {
+        const root = document.documentElement.style;
+        if(colors.primary) root.setProperty('--primary', colors.primary);
+        if(colors.primaryDark) root.setProperty('--primary-dark', colors.primaryDark);
+        if(colors.secondary) root.setProperty('--secondary', colors.secondary);
+        if(colors.bgLight) root.setProperty('--bg-light', colors.bgLight);
+        if(colors.textDark) root.setProperty('--text-dark', colors.textDark);
+        if(colors.textLight) root.setProperty('--text-light', colors.textLight);
+        if(colors.navbarBg) root.setProperty('--navbar-bg', colors.navbarBg);
+        if(colors.footerBg) root.setProperty('--footer-bg', colors.footerBg);
+    }
+
+    function renderAll(d) {
+        // ========== LOGO & BRAND ==========
+        const logoUrl = (d.logo && d.logo !== "") ? d.logo : (d.logoFallback || 'https://placehold.co/200x60/bfdff0/1c6c8f?text=Samira');
+        const brandName = d.settings.brandName;
+        const tagline = d.settings.tagline;
+
+        document.getElementById('brandNameDesktop').innerText = brandName;
+        document.getElementById('taglineDesktop').innerText = tagline;
+        const logoDesktop = document.getElementById('logoImgDesktop');
+        logoDesktop.src = logoUrl;
+        logoDesktop.onerror = () => { logoDesktop.src = d.logoFallback || 'https://placehold.co/200x60/bfdff0/1c6c8f?text=Samira'; };
+
+        document.getElementById('brandNameMobile').innerText = brandName;
+        document.getElementById('taglineMobile').innerText = tagline;
+        const logoMobile = document.getElementById('logoImgMobile');
+        logoMobile.src = logoUrl;
+        logoMobile.onerror = () => { logoMobile.src = d.logoFallback || 'https://placehold.co/200x60/bfdff0/1c6c8f?text=Samira'; };
+
+        // ========== DESKTOP NAVIGATION ==========
+        const navItems = ['navHome','navBlog','navMitra','navGallery','navMaps','navWA'];
+        const navMap = { navHome:'#home', navBlog:'#blogSection', navMitra:'#mitraSection', navGallery:'#gallerySection', navMaps:'#map', navWA:'wa' };
+        const navLinksHtml = navItems.map(key => {
+            let href = navMap[key] === 'wa' ? '#' : navMap[key];
+            let label = d.settings[key];
+            if(key === 'navWA') return `<li><a href="#" class="wa-nav-link">${label}</a></li>`;
+            return `<li><a href="${href}">${label}</a></li>`;
+        }).join('');
+        document.getElementById('navLinksDesktop').innerHTML = navLinksHtml;
+
+        // ========== MOBILE BOTTOM NAVIGATION ==========
+        const bottomNavDiv = document.getElementById('bottomNav');
+        const bottomItems = navItems.map(key => {
+            let icon = '';
+            if(key === 'navHome') icon = 'fas fa-home';
+            else if(key === 'navBlog') icon = 'fas fa-newspaper';
+            else if(key === 'navMitra') icon = 'fas fa-user-friends';
+            else if(key === 'navGallery') icon = 'fas fa-images';
+            else if(key === 'navMaps') icon = 'fas fa-map-marker-alt';
+            else if(key === 'navWA') icon = 'fab fa-whatsapp';
+            let href = navMap[key] === 'wa' ? '#' : navMap[key];
+            if(key === 'navWA') return `<a href="#" class="bottom-nav-item wa-nav-link"><i class="${icon}"></i><span>${d.settings[key]}</span></a>`;
+            return `<a href="${href}" class="bottom-nav-item"><i class="${icon}"></i><span>${d.settings[key]}</span></a>`;
+        }).join('');
+        bottomNavDiv.innerHTML = bottomItems;
+
+        // ========== HERO ==========
+        const heroWrapper = document.getElementById('heroWrapper');
+        heroWrapper.innerHTML = d.carousel.map(slide => `
+            <div class="swiper-slide" style="background-image: linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${slide.image}'); background-size: cover;">
+                <div class="hero-caption"><h2>${slide.title}</h2><p>${slide.caption}</p></div>
+            </div>
+        `).join('');
+        if(heroSwiper) heroSwiper.destroy(true, true);
+        heroSwiper = new Swiper('#heroSwiper', {
+            autoplay: { delay: 4000 },
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: false
+        });
+
+        // ========== SERVICES ==========
+        const servicesWrapper = document.getElementById('servicesWrapper');
+        servicesWrapper.innerHTML = d.services.map(s => `
+            <div class="swiper-slide">
+                <div class="service-card">
+                    <i class="${s.icon}"></i>
+                    <h3>${s.title}</h3>
+                    <p>${s.desc}</p>
+                </div>
+            </div>
+        `).join('');
+        if(servicesSwiper) servicesSwiper.destroy(true, true);
+        servicesSwiper = new Swiper('#servicesSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
+            navigation: false
+        });
+
+        // ========== MITRA ==========
+        const mitraPhotoUrl = d.mitraPhoto || d.mitraPhotoFallback;
+        document.getElementById('mitraContent').innerHTML = `
+            <div class="mitra-photo"><img src="${mitraPhotoUrl}" onerror="this.src='${d.mitraPhotoFallback}'" alt="Mitra"></div>
+            <div class="mitra-info">
+                <h3>${d.settings.mitraName}</h3>
+                <p>${d.settings.mitraAddress}</p>
+                <p><i class="fas fa-phone-alt"></i> ${d.settings.contactPhone}</p>
+            </div>
+        `;
+
+        // ========== GALLERY ==========
+        const galleryWrapper = document.getElementById('galleryWrapper');
+        galleryWrapper.innerHTML = d.gallery.map(item => {
+            if(item.type === 'video') {
+                const thumb = item.thumbnail || `https://img.youtube.com/vi/${extractVideoId(item.url)}/hqdefault.jpg`;
+                return `<div class="swiper-slide" data-type="video" data-url="${item.url}">
+                            <img class="gallery-video-thumb" src="${thumb}" onerror="this.src='${item.fallback}'">
+                            <div class="gallery-caption">${item.caption} <i class="fas fa-play-circle"></i></div>
+                        </div>`;
+            } else {
+                return `<div class="swiper-slide" data-type="image" data-url="${item.url}">
+                            <img src="${item.url}" onerror="this.src='${item.fallback}'">
+                            <div class="gallery-caption">${item.caption}</div>
+                        </div>`;
+            }
+        }).join('');
+        if(gallerySwiper) gallerySwiper.destroy(true, true);
+        gallerySwiper = new Swiper('#gallerySwiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
+            navigation: false
+        });
+        document.querySelectorAll('#galleryWrapper .swiper-slide').forEach(slide => {
+            slide.addEventListener('click', () => openModal(slide.dataset.type, slide.dataset.url));
+        });
+
+        // ========== BLOG ==========
+        document.getElementById('blogTitle').innerText = d.settings.blogTitle;
+        const blogWrapper = document.getElementById('blogWrapper');
+        blogWrapper.innerHTML = d.blogPosts.map(post => `
+            <div class="swiper-slide">
+                <div class="blog-card">
+                    <img src="${post.image}" alt="${post.title}" onerror="this.src='https://placehold.co/600x400/3a8bbb/white?text=Gambar+Blog'">
+                    <div class="blog-content">
+                        <h3>${post.title}</h3>
+                        <small>${post.date}</small>
+                        <p>${post.excerpt}</p>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        if(blogSwiper) blogSwiper.destroy(true, true);
+        blogSwiper = new Swiper('#blogSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
+            navigation: false
+        });
+        
+        attachBlogImageClickHandler();
+
+        // ========== BROCHURE ==========
+        const brochureSection = document.getElementById('brochureSection');
+        const brochureUrl = d.brochure || d.brochureFallback;
+        brochureSection.innerHTML = `
+            <div class="brochure-img"><img src="${brochureUrl}" onerror="this.src='${d.brochureFallback}'"></div>
+            <div class="brochure-info">
+                <h3>${d.settings.brochureHeading}</h3>
+                <p>${d.settings.brochureDesc}</p>
+                <button id="waBrochureBtn" class="wa-btn"><i class="fab fa-whatsapp"></i> Dapatkan Brosur via WA</button>
+            </div>
+        `;
+        document.getElementById('waBrochureBtn')?.addEventListener('click', () => {
+            window.open(`https://wa.me/${d.settings.waNumber1}?text=${encodeURIComponent('Halo, saya tertarik dengan paket Umroh/Haji. Mohon kirimkan brosur digital.')}`, '_blank');
+        });
+
+        // ========== MAPS ==========
+        if(mapInstance) mapInstance.remove();
+        const { lat, lng, zoom } = d.mapLocation;
+        mapInstance = L.map('map').setView([lat, lng], zoom);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+        }).addTo(mapInstance);
+        L.marker([lat, lng]).addTo(mapInstance).bindPopup(`<b>${d.settings.mitraName}</b><br>${d.settings.mitraAddress}`).openPopup();
+        document.getElementById('mapLink').innerHTML = `<a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank">📍 Buka di Google Maps</a>`;
+        document.getElementById('mapsTitle').innerText = d.settings.mapsTitle;
+
+        // ========== FOOTER ==========
+        document.getElementById('footerText').innerText = d.settings.footerText;
+        document.getElementById('footerAddress').innerText = d.settings.footerAddress;
+        document.getElementById('copyright').innerText = d.settings.copyright;
+
+        // ========== FLOATING WA & NAV WA ==========
+        const waNumber = d.settings.waNumber1;
+        document.getElementById('floatingWaBtn').href = `https://wa.me/${waNumber}?text=Assalamualaikum%20saya%20tertarik%20umroh`;
+        document.querySelectorAll('.wa-nav-link').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.open(`https://wa.me/${waNumber}?text=Assalamualaikum%20saya%20ingin%20bertanya%20tentang%20umroh`, '_blank');
+            });
+        });
+    }
+
+    function attachBlogImageClickHandler() {
+        const blogContainer = document.getElementById('blogWrapper');
+        if (!blogContainer) return;
+        if (blogContainer.hasAttribute('data-blog-click-attached')) return;
+        blogContainer.setAttribute('data-blog-click-attached', 'true');
+        
+        blogContainer.addEventListener('click', (e) => {
+            const targetImg = e.target.closest('.blog-card img');
+            if (targetImg && targetImg.src) {
+                e.preventDefault();
+                e.stopPropagation();
+                openModal('image', targetImg.src);
+            }
+        });
+    }
+
+    function extractVideoId(url) {
+        let match = url.match(/embed\/([^?]+)/);
+        if (match) return match[1];
+        match = url.match(/v=([^&]+)/);
+        if (match && match[1]) return match[1];
+        return 'dQw4w9WgXcQ';
+    }
+
+    function openModal(type, src) {
+        const modal = document.getElementById('mediaModal');
+        const modalContent = document.getElementById('modalContent');
+        if (!modal || !modalContent) return;
+        if(type === 'image') {
+            modalContent.innerHTML = `<img src="${src}" style="max-width:100%;max-height:80vh; border-radius:12px;">`;
+        } else {
+            let finalUrl = src;
+            if (src.includes('youtube.com/watch')) {
+                let videoId = src.split('v=')[1]?.split('&')[0];
+                if(videoId) finalUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            } else if (src.includes('youtu.be')) {
+                let videoId = src.split('/').pop()?.split('?')[0];
+                if(videoId) finalUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            } else if (!src.includes('embed') && !src.includes('youtube.com/embed')) {
+                finalUrl = src;
+            }
+            modalContent.innerHTML = `<iframe width="100%" height="400" src="${finalUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        }
+        modal.style.display = 'flex';
+    }
+
+    document.querySelector('.close-modal')?.addEventListener('click', () => {
+        const modal = document.getElementById('mediaModal');
+        if(modal) modal.style.display = 'none';
+        const modalContent = document.getElementById('modalContent');
+        if(modalContent) modalContent.innerHTML = '';
+    });
+    
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('mediaModal');
+        if(e.target === modal) {
+            modal.style.display = 'none';
+            const modalContent = document.getElementById('modalContent');
+            if(modalContent) modalContent.innerHTML = '';
+        }
+    });
+
+    // ========== TRIPLE CLICK FOOTER ==========
+    const footer = document.getElementById('secretFooter');
+    if(footer) {
+        footer.addEventListener('click', () => {
+            clickCount++;
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => { clickCount = 0; }, 800);
+            if (clickCount === 3) {
+                const pin = prompt("Masukkan PIN untuk akses Admin:");
+                if (pin === "4321") {
+                    window.location.href = "admin.html";
+                } else {
+                    alert("PIN salah!");
+                }
+                clickCount = 0;
+            }
+        });
+    }
+
+    // Jalankan load data
+    loadData();
+</script>
+</body>
+</html>
